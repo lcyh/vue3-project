@@ -19,12 +19,17 @@ module.exports = {
     'semi': 'off',
     'comma-dangle': 'off',
     "@typescript-eslint/explicit-module-boundary-types": "off",
-    "object-curly-newline": ["error", {
+    "object-curly-newline": ["off", {
       "ObjectExpression": "always",
       "ObjectPattern": { "multiline": true },
       "ImportDeclaration": "never",
       "ExportDeclaration": { "multiline": true, "minProperties": 3 }
-    }]
+    }],
+    "no-empty-function": "off",
+    "@typescript-eslint/no-empty-function": ["off"],
+    "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }],
+    "no-continue": "off",
+    '@typescript-eslint/no-var-requires': "off"
   },
   overrides: [
     {

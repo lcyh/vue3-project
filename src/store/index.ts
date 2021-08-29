@@ -1,6 +1,6 @@
 import { createStore } from 'vuex'
 import RootStateTypes from './types'
-import CountModule from './modules/Count'
+import CountModule from './modules/countStore'
 
 const store = createStore<RootStateTypes>({
   state: {

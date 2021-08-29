@@ -1,0 +1,31 @@
+/* [class^=icon] {
+  font-family: "iconfont" !important;
+} */
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 20px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* .iconconditions:before {
+  content: "\e748";
+}
+
+.iconMoneymanagement:before {
+  content: "\e759";
+}
+
+.iconicon_expand:before {
+  content: "\e609";
+}
+
+.iconicon_collapse:before {
+  content: "\e621";
+}
+
+.iconbilibili:before {
+  content: "\e603";
+} */
+

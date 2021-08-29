@@ -1,4 +1,4 @@
-import CountState from './modules/Count/types'
+import CountState from './modules/countStore/types'
 
 export default interface RootStateTypes {
   text: string
