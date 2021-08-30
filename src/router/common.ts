@@ -47,29 +47,45 @@ export function formatMenusMap() {
   return menuMap
 }
 
-export default [
+const routes = [
   {
     path: '/',
     meta: { requiresAuth: true },
-    redirect: '/home',
+    redirect: 'Home',
     component: () => import(/* webpackChunkName: "index" */ '@/views/layout/index.vue'),
     children: [
       {
-        path: 'home',
+        path: '',
         name: 'Home',
         meta: { showNavSide: false },
         component: () => import(/* webpackChunkName: "home" */ '@/views/home/index.vue')
       }
     ]
   },
-  // ...routeModules,
-  {
-    path: '/403',
-    name: 'Forbiddance',
-    component: () => import(/* webpackChunkName: "forbiddance" */ '@/views/exceptions/403.vue')
-  },
   // {
-  //   path: '*',
-  //   component: () => import(/* webpackChunkName: "notfound" */ '@/views/exceptions/404.vue')
-  // }
-]
+  //   path: '/home',
+  //   name: 'Home',
+  //   component: () => import(/* webpackChunkName: "home" */ '@/views/home/index.vue')
+  // },
+  {
+    path: '/about',
+    name: 'About',
+    component: () => import(/* webpackChunkName: "about" */ '@/views/About.vue'),
+  },
+  {
+    path: '/profile',
+    name: 'Profile',
+    component: () => import(/* webpackChunkName: "Profile" */ '@/views/Profile'),
+  },
+  {
+    path: '/form',
+    name: 'Form',
+    component: () => import(/* webpackChunkName: "Form" */ '@/views/Form.vue'),
+  },
+  {
+    path: '/count',
+    name: 'Count',
+    component: () => import(/* webpackChunkName: "Count" */ '@/views/Count.vue'),
+  },
+];
+export default routes

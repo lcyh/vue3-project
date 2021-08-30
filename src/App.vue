@@ -1,16 +1,16 @@
 <template>
-  <div id="container">
-    <router-link to="/">Home</router-link> |
+  <div id="app-container">
+    <!-- <router-link to="/">Home</router-link> |
     <router-link to="/about">About</router-link> |
     <router-link to="/profile">Profile</router-link> |
     <router-link to="/form">Form</router-link> |
-    <router-link to="/count">Count</router-link>
-    <!-- <router-view v-slot="{ Component }">
+    <router-link to="/count">Count</router-link> -->
+    <router-view v-slot="{ Component }">
       <transition>
         <component :is="Component" />
       </transition>
-    </router-view> -->
-    <router-view />
+    </router-view>
+    <!-- <router-view></router-view> -->
   </div>
 </template>
 
@@ -18,7 +18,7 @@
 @import "./assets/iconfont/iconfont.css";
 @import "./assets/styles/common.scss";
 
-#container {
+#app-container {
   width: 100%;
   min-height: 100vh;
 }

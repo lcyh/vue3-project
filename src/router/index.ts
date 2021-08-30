@@ -3,14 +3,57 @@ import { configure, start, done } from 'nprogress'
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
 import { getCookie } from '@/utils/auth'
 import Redirect from '@/utils/redirect'
-import commonRouter from './common'
+// import commonRouter from './common'
 import store from '../store'
-
-console.log('commonRouter', commonRouter)
 
 configure({
   showSpinner: false
 })
+const commonRouter = [
+  {
+    path: '/',
+    name: 'Layout',
+    meta: { requiresAuth: true },
+    redirect: 'Home',
+    component: () => import(/* webpackChunkName: "index" */ '@/views/layout/index.vue'),
+    children: [
+      {
+        path: '',
+        name: 'Home',
+        meta: { showNavSide: false },
+        component: () => import(/* webpackChunkName: "home" */ '@/views/home/index.vue')
+      }
+    ]
+  },
+  // {
+  //   path: '/home',
+  //   name: 'Home',
+  //   meta: { requiresAuth: true },
+  //   component: () => import(/* webpackChunkName: "home" */ '@/views/home/index.vue')
+  // },
+  {
+    path: '/about',
+    name: 'About',
+    component: () => import(/* webpackChunkName: "about" */ '@/views/About.vue'),
+  },
+  {
+    path: '/profile',
+    name: 'Profile',
+    component: () => import(/* webpackChunkName: "Profile" */ '@/views/Profile'),
+  },
+  {
+    path: '/form',
+    name: 'Form',
+    component: () => import(/* webpackChunkName: "Form" */ '@/views/Form.vue'),
+  },
+  {
+    path: '/count',
+    name: 'Count',
+    component: () => import(/* webpackChunkName: "Count" */ '@/views/Count.vue'),
+  },
+];
+console.log('commonRouter', commonRouter);
+
 const router = createRouter({
   history: createWebHashHistory(), // createWebHistory
   routes: commonRouter as RouteRecordRaw[]
