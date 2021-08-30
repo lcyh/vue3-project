@@ -64,7 +64,7 @@ const routes = [
         path: '/databoard',
         name: 'Databoard',
         meta: { requiresAuth: true, title: '数据看板' },
-        component: () => import(/* webpackChunkName: "Profile" */ '@/views/databoard/index.vue'),
+        component: () => import(/* webpackChunkName: "databoard" */ '@/views/databoard/index.vue'),
       },
       {
         path: '/performance',
@@ -76,19 +76,19 @@ const routes = [
         path: '/form',
         name: 'Form',
         meta: { requiresAuth: true, title: 'Form表单' },
-        component: () => import(/* webpackChunkName: "Form" */ '@/views/form.vue'),
+        component: () => import(/* webpackChunkName: "form" */ '@/views/form.vue'),
       },
       {
         path: '/count',
         name: 'Count',
         meta: { requiresAuth: true, title: '计数器' },
-        component: () => import(/* webpackChunkName: "Count" */ '@/views/count.vue'),
+        component: () => import(/* webpackChunkName: "count" */ '@/views/count.vue'),
       },
       {
         path: '/profile',
         name: 'Profile',
         meta: { requiresAuth: true, title: '个人中心' },
-        component: () => import(/* webpackChunkName: "Count" */ '@/views/profile'),
+        component: () => import(/* webpackChunkName: "profile" */ '@/views/profile'),
       },
     ]
   },
