@@ -3,14 +3,14 @@
     <div class="logo-wrap">
       <router-link class="link" to="/">
         <i class="iconfont iconbilibili"></i>
-        <p class="logo-text">运营数据中心</p>
+        <p class="logo-text">BI系统</p>
       </router-link>
     </div>
     <div class="header-menus">
       <el-menu
         mode="horizontal"
         :default-active="selectedMenu"
-        background-color="#324157"
+        background-color="#437BEE"
         text-color="#bfcbd9"
         active-text-color="#409eff"
         @select="handleSelect"
@@ -18,7 +18,9 @@
         <el-menu-item index="Home">首页</el-menu-item>
         <el-menu-item index="Performance">业绩表现</el-menu-item>
         <el-menu-item index="Databoard">数据看板</el-menu-item>
-        <el-menu-item index="Admin">后台管理</el-menu-item>
+        <el-menu-item index="Form">Form表单</el-menu-item>
+        <el-menu-item index="Count">计数器</el-menu-item>
+        <el-menu-item index="Profile">jsx个人中心</el-menu-item>
       </el-menu>
     </div>
     <div class="header-right">

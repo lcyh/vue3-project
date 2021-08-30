@@ -1,7 +1,6 @@
 <template>
   <div class="container-fulled">
-    layout
-    <!-- <Header />
+    <Header />
     <section class="body">
       <NavSide />
       <main class="wrapper">
@@ -9,17 +8,18 @@
           <router-view />
         </transition>
       </main>
-    </section> -->
+    </section>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
-// import Header from "./Header.vue";
-// import NavSide from "./NavSide.vue";
+import Header from "./Header.vue";
+import NavSide from "./NavSide.vue";
+
 export default defineComponent({
   name: "layout",
-  // components: { Header, NavSide },
+  components: { Header, NavSide },
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   // beforeRouteEnter(to, from, next) {},
   // eslint-disable-next-line @typescript-eslint/no-unused-vars

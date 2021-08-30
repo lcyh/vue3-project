@@ -51,41 +51,46 @@ const routes = [
   {
     path: '/',
     meta: { requiresAuth: true },
-    redirect: 'Home',
+    redirect: '/home',
     component: () => import(/* webpackChunkName: "index" */ '@/views/layout/index.vue'),
     children: [
       {
-        path: '',
+        path: '/home',
         name: 'Home',
-        meta: { showNavSide: false },
+        meta: { showNavSide: false, title: '首页' },
         component: () => import(/* webpackChunkName: "home" */ '@/views/home/index.vue')
-      }
+      },
+      {
+        path: '/databoard',
+        name: 'Databoard',
+        meta: { requiresAuth: true, title: '数据看板' },
+        component: () => import(/* webpackChunkName: "Profile" */ '@/views/databoard/index.vue'),
+      },
+      {
+        path: '/performance',
+        name: 'Performance',
+        meta: { requiresAuth: true, title: '业绩表现' },
+        component: () => import(/* webpackChunkName: "performance" */ '@/views/performance.vue'),
+      },
+      {
+        path: '/form',
+        name: 'Form',
+        meta: { requiresAuth: true, title: 'Form表单' },
+        component: () => import(/* webpackChunkName: "Form" */ '@/views/form.vue'),
+      },
+      {
+        path: '/count',
+        name: 'Count',
+        meta: { requiresAuth: true, title: '计数器' },
+        component: () => import(/* webpackChunkName: "Count" */ '@/views/count.vue'),
+      },
+      {
+        path: '/profile',
+        name: 'Profile',
+        meta: { requiresAuth: true, title: '个人中心' },
+        component: () => import(/* webpackChunkName: "Count" */ '@/views/profile'),
+      },
     ]
-  },
-  // {
-  //   path: '/home',
-  //   name: 'Home',
-  //   component: () => import(/* webpackChunkName: "home" */ '@/views/home/index.vue')
-  // },
-  {
-    path: '/about',
-    name: 'About',
-    component: () => import(/* webpackChunkName: "about" */ '@/views/About.vue'),
-  },
-  {
-    path: '/profile',
-    name: 'Profile',
-    component: () => import(/* webpackChunkName: "Profile" */ '@/views/Profile'),
-  },
-  {
-    path: '/form',
-    name: 'Form',
-    component: () => import(/* webpackChunkName: "Form" */ '@/views/Form.vue'),
-  },
-  {
-    path: '/count',
-    name: 'Count',
-    component: () => import(/* webpackChunkName: "Count" */ '@/views/Count.vue'),
   },
 ];
 export default routes

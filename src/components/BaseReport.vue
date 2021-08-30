@@ -4,6 +4,7 @@
 <template>
   <div class="container">
     <iframe
+      v-show="url"
       class="iframe"
       :src="url"
       ref="iframe"
@@ -12,6 +13,7 @@
       frameborder="0"
     >
     </iframe>
+    <p v-show="!url">暂无数据看板数据</p>
   </div>
 </template>
 <script lang="ts">
@@ -31,6 +33,7 @@ export default defineComponent({
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   setup(props, context) {
     const url = computed(() => props.reportUrl);
+    console.log("base-report-url", url);
 
     return {
       url: url.value,
