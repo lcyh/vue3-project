@@ -1,6 +1,7 @@
 import { createStore } from 'vuex'
 import RootStateTypes from './types'
-import CountModule from './modules/countStore'
+import countModule from './modules/countStore'
+import appModule from './modules/appStore'
 
 const store = createStore<RootStateTypes>({
   state: {
@@ -13,7 +14,8 @@ const store = createStore<RootStateTypes>({
   actions: {
   },
   modules: {
-    CountModule
+    appModule,
+    countModule,
   }
 })
 export default store

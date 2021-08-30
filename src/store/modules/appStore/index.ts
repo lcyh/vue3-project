@@ -3,11 +3,11 @@ import { ActionContext } from 'vuex'
 import { ElMessage } from 'element-plus'
 import { formatMenusMap } from '@/router/common'
 import UserAction from '@/api/modules/app'
-import { AppState, UserInfo } from './types'
-import { AllStateTypes } from '../../types'
+import AppState, { UserInfo } from './types'
+import RootStateTypes from '../../types'
 
-const app = {
-  namespace: true,
+const appModule = {
+  namespaced: true,
   state: {
     userInfo: null, // 用户信息
     collapsed: false, // 左侧导航是否折叠
@@ -38,19 +38,19 @@ const app = {
     }
   },
   actions: {
-    toggleCollapsed({ commit }: ActionContext<string, AllStateTypes>, value: boolean) {
+    toggleCollapsed({ commit }: ActionContext<string, RootStateTypes>, value: boolean) {
       commit('TOGGLE_COLLAPSED', value)
     },
-    setNavSide({ commit }: ActionContext<string, AllStateTypes>, value: boolean) {
+    setNavSide({ commit }: ActionContext<string, RootStateTypes>, value: boolean) {
       commit('SET_NAV_SIDE', value)
     },
-    setActivedMenu({ commit }: ActionContext<string, AllStateTypes>, value: string) {
+    setActivedMenu({ commit }: ActionContext<string, RootStateTypes>, value: string) {
       commit('SET_ACTIVED_MENU', value)
     },
-    setShowGameSelect({ commit }: ActionContext<string, AllStateTypes>, value: boolean) {
+    setShowGameSelect({ commit }: ActionContext<string, RootStateTypes>, value: boolean) {
       commit('SET_SHOW_GAME_SELECT', value)
     },
-    setUserInfo({ commit }: ActionContext<string, AllStateTypes>) {
+    setUserInfo({ commit }: ActionContext<string, RootStateTypes>) {
       return new Promise<void>((resolve, reject) => {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         UserAction.getUserInfo().then((res: any) => {
@@ -74,7 +74,8 @@ const app = {
         })
       })
     },
-    setUserPermission({ commit, state }: ActionContext<AppState, AllStateTypes>) {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    setUserPermission({ commit, state }: ActionContext<AppState, RootStateTypes>) {
       return new Promise<any>((resolve, reject) => {
         UserAction.getUserPermission({
           userId: state.userInfo?.id
@@ -100,4 +101,4 @@ const app = {
     }
   }
 }
-export default app
+export default appModule

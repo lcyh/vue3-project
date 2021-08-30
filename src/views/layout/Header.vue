@@ -12,11 +12,10 @@
         :default-active="selectedMenu"
         background-color="#437BEE"
         text-color="#bfcbd9"
-        active-text-color="#409eff"
+        active-text-color="#fff"
         @select="handleSelect"
       >
         <el-menu-item index="Home">首页</el-menu-item>
-        <el-menu-item index="Performance">业绩表现</el-menu-item>
         <el-menu-item index="Databoard">数据看板</el-menu-item>
         <el-menu-item index="Form">Form表单</el-menu-item>
         <el-menu-item index="Count">计数器</el-menu-item>
@@ -40,35 +39,37 @@
   </header>
 </template>
 <script lang="ts">
-import { defineComponent } from "vue";
+import { computed, defineComponent } from "vue";
 import { useRouter, useRoute } from "vue-router";
+import { useStore } from "vuex";
 
 export default defineComponent({
   setup() {
-    // @Getter("activedMenu") activedMenu!: string;
-    // @Action("setActivedMenu") setActivedMenu!: Function;
-
+    const store = useStore();
     const route = useRoute();
     const router = useRouter();
-    const selectedMenu = () => {
-      const routePath = route.path;
-      let routeName = "Home";
-      if (/^\/performance/.test(routePath)) {
-        routeName = "Performance";
-      } else if (/^\/databoard/.test(routePath)) {
-        // 当切换到数据看板导航时请求游戏列表
-        routeName = "Databoard";
-      } else if (/^\/admin/.test(routePath)) {
-        routeName = "Admin";
-      }
-      // if (routeName !== activedMenu) {
-      //   setActivedMenu(routeName);
+    console.log("store---header", store);
+    // const activedMenu = computed(() => store.state.appModule.activedMenu);
+    const selectedMenu = computed(() => {
+      // const routePath = route.path;
+      // let routeName = "Home";
+      // if (/^\/databoard/.test(routePath)) {
+      //   // 当切换到数据看板导航时请求游戏列表
+      //   routeName = "Databoard";
+      // } else if (/^\/form/.test(routePath)) {
+      //   routeName = "Admin";
+      // } else if (/^\/admin/.test(routePath)) {
+      //   routeName = "Admin";
       // }
-      return routeName;
-    };
+      // if (routeName !== activedMenu.value) {
+      store.dispatch("appModule/setActivedMenu", route.name);
+      // }
+      return route.name;
+    });
 
     const handleSelect = (key: string) => {
-      // setActivedMenu(key);
+      // console.log("handleSelect", key);
+      store.dispatch("appModule/setActivedMenu", key);
       router.push({
         name: key,
       });

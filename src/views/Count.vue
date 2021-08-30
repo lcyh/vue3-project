@@ -19,14 +19,13 @@ export default defineComponent({
   setup() {
     const store = useStore();
     console.log("count", store);
-
     const reactiveData = reactive({
       text: computed(() => store.state.text),
-      count: computed(() => store.state.CountModule.count),
+      count: computed(() => store.state.countModule.count),
     });
 
     const double = () => {
-      store.commit("CountModule/DOUBLE_COUNT");
+      store.commit("countModule/DOUBLE_COUNT");
     };
 
     return {

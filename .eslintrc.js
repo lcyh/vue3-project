@@ -29,7 +29,8 @@ module.exports = {
     "@typescript-eslint/no-empty-function": ["off"],
     "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }],
     "no-continue": "off",
-    '@typescript-eslint/no-var-requires': "off"
+    '@typescript-eslint/no-var-requires': "off",
+    "import/no-cycle": [0, { ignoreExternal: true }]
   },
   overrides: [
     {

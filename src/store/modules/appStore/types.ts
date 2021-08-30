@@ -6,7 +6,7 @@ export interface UserInfo {
   userName: string;
   email: string;
 }
-export interface AppState {
+export default interface AppState {
   userInfo: UserInfo | null;
   collapsed: boolean;
   showNavSide: boolean | undefined;

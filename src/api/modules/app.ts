@@ -12,8 +12,8 @@ function getUserInfo(params = {}) {
 // 获取当前用户导航权限
 function getUserPermission(params = {}) {
   return Http.create({
-    method: 'post',
-    url: '/user/permission',
+    method: 'get',
+    url: '/mock/permission.json',
     data: params
   })
 }

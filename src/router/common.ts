@@ -51,11 +51,11 @@ const routes = [
   {
     path: '/',
     meta: { requiresAuth: true },
-    redirect: '/home',
+    redirect: 'Home',
     component: () => import(/* webpackChunkName: "index" */ '@/views/layout/index.vue'),
     children: [
       {
-        path: '/home',
+        path: '',
         name: 'Home',
         meta: { showNavSide: false, title: '首页' },
         component: () => import(/* webpackChunkName: "home" */ '@/views/home/index.vue')
@@ -65,12 +65,6 @@ const routes = [
         name: 'Databoard',
         meta: { requiresAuth: true, title: '数据看板' },
         component: () => import(/* webpackChunkName: "databoard" */ '@/views/databoard/index.vue'),
-      },
-      {
-        path: '/performance',
-        name: 'Performance',
-        meta: { requiresAuth: true, title: '业绩表现' },
-        component: () => import(/* webpackChunkName: "performance" */ '@/views/performance.vue'),
       },
       {
         path: '/form',

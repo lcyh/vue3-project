@@ -3,7 +3,7 @@ import CountState from './types'
 import RootStateTypes from '../../types'
 
 // Create a new store Modules.
-const CountModule: Module<CountState, RootStateTypes> = {
+const countModule: Module<CountState, RootStateTypes> = {
   namespaced: true,
   state: {
     name: 'count-module',
@@ -18,4 +18,4 @@ const CountModule: Module<CountState, RootStateTypes> = {
   }
 }
 
-export default CountModule
+export default countModule

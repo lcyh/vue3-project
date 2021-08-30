@@ -1,0 +1,16 @@
+{
+    "list": [
+        {
+            "havePermission": 1,
+            "menuId": 2,
+            "title": "数据看板",
+            "path": "/databoard",
+            "name": "Databoard",
+            "redirect": "",
+            "parentId": 0,
+            "reportUrl": "",
+            "type": 1,
+            "url": ""
+        }
+    ]
+}
