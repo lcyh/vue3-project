@@ -30,7 +30,8 @@ module.exports = {
     "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }],
     "no-continue": "off",
     '@typescript-eslint/no-var-requires': "off",
-    "import/no-cycle": [0, { ignoreExternal: true }]
+    "import/no-cycle": ["off", { ignoreExternal: true }],
+    "max-len": ["off"]
   },
   overrides: [
     {

@@ -8,7 +8,8 @@
 			"title": "数据概览",
 			"type": 0,
 			"status": "visible",
-			"reportUrl": "http://www.baidu.com"
+			"reportUrl": "http://www.baidu.com",
+			"icon": "iconpiechart"
 		},
 		{
 			"id": 2,
@@ -16,7 +17,8 @@
 			"title": "实时看板",
 			"type": 0,
 			"status": "visible",
-			"reportUrl": "http://www.taobao.com"
+			"reportUrl": "http://www.taobao.com",
+			"icon": "iconlinechart"
 		},
 		{
 			"id": 3,
@@ -24,23 +26,26 @@
 			"title": "新增看板",
 			"type": 0,
 			"status": "visible",
-			"reportUrl": "http://www.taobao.com"
+			"reportUrl": "http://www.taobao.com",
+			"icon": "iconadduser"
 		},
 		{
-			"id": 10,
+			"id": 4,
 			"name": "Custom",
 			"title": "自定义看板",
 			"type": 0,
 			"status": "visible",
+			"icon": "iconUserSettings",
 			"children": [
 				{
-					"id": 48,
+					"id": "4-1",
 					"name": "Board1",
 					"title": "自定义看板一",
 					"type": 1,
 					"children": null,
 					"reportUrl": "http://www.taobao.com",
-					"status": "visible"
+					"status": "visible",
+					"icon": "iconadduser"
 				}
 			]
 		}

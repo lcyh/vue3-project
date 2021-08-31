@@ -6,7 +6,7 @@
         background-color="#fff"
         text-color="#101010"
         active-text-color="#437BEE"
-        :default-active="defaultActivedSubmenu"
+        :default-active="activedSubmenu"
         :collapse-transition="false"
         :collapse="collapsed"
         @select="onSelectMenu"
@@ -14,8 +14,8 @@
         <template v-for="item in submenuList">
           <el-submenu
             v-if="item.children && item.children.length"
-            :index="item.id"
-            :key="item.id"
+            :index="item.name || item.title"
+            :key="item.name || item.title"
           >
             <template v-slot:title>
               <i
@@ -30,20 +30,20 @@
             </template>
             <el-menu-item
               v-for="el in item.children"
-              :key="el.id"
-              :index="el.id"
+              :key="el.name"
+              :index="el.name"
               class="menu-item"
               v-show="!(el.meta && el.meta.hideFlag)"
             >
-              <i :class="['iconfont', el.icon]"></i>
+              <!-- <i :class="['iconfont', el.icon]"></i> -->
               <template #title>{{ el.title }}</template>
             </el-menu-item>
           </el-submenu>
           <el-menu-item
             class="menu-item"
             v-else
-            :key="item.id"
-            :index="item.id"
+            :key="item.name"
+            :index="item.name"
           >
             <i :class="['iconfont', item.icon]"></i>
             <template class="nav-text" #title>{{ item.title }}</template>
@@ -64,7 +64,6 @@
   </aside>
 </template>
 <script lang="ts">
-import { useStore } from "vuex";
 import { defineComponent, computed, ref } from "vue";
 import { useRoute } from "vue-router";
 
@@ -74,25 +73,44 @@ const menuIcons: { [key: string]: string } = {
   流量: "iconadduser",
   专题: "iconspecial",
 };
+const subMenuList = [
+  {
+    id: 1,
+    name: "Overview",
+    title: "数据概览",
+    type: 0,
+    status: "visible",
+    reportUrl: "http://www.baidu.com",
+    icon: "iconpiechart",
+  },
+  {
+    id: 2,
+    name: "RealTime",
+    title: "实时看板",
+    type: 0,
+    status: "visible",
+    reportUrl: "http://www.taobao.com",
+    icon: "iconlinechart",
+  },
+];
 
 export default defineComponent({
   setup() {
-    const store = useStore();
     const route = useRoute();
     const collapsed = ref(false);
-    const submenuList = computed(
-      () => store.state.databoardModule.reportMenuList
-    );
+    const submenuList = ref(subMenuList);
     const showNavSide = computed(() => route.name === "Databoard");
-    const defaultActivedSubmenu = computed(() => {
-      const firstId = store.state.databoardModule.reportMenuList[0]?.id;
-      return firstId;
+    const activedSubmenu = computed(() => {
+      const routeName = route.name;
+      console.log("activedSubmenu", routeName);
+
+      return routeName;
     });
     const toggleCollapse = () => {
       collapsed.value = !collapsed.value;
     };
     return {
-      defaultActivedSubmenu,
+      activedSubmenu,
       collapsed,
       toggleCollapse,
       menuIcons,

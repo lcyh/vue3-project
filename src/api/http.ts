@@ -60,9 +60,11 @@ instance.interceptors.response.use((response: AxiosResponse) => {
 
 export default class Http {
   // 封装 GET、POST、PATCH、PUT、DELETE 等请求的配置参数
-  static async create(config: AxiosRequestConfig): Promise<ResponseData<AxiosResponse>> {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  static async create(config: AxiosRequestConfig): Promise<ResponseData<any>> {
     const res = await instance(config)
-    const result: ResponseData<AxiosResponse> = this.successResponse(res)
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const result: ResponseData<any> = this.successResponse(res)
     return Promise.resolve(result)
   }
 

@@ -48,28 +48,30 @@ export default defineComponent({
     const store = useStore();
     const route = useRoute();
     const router = useRouter();
+    const currentRoutePath: string = route.path;
     console.log("store---header", store);
     // const activedMenu = computed(() => store.state.appModule.activedMenu);
     const selectedMenu = computed(() => {
       // const routePath = route.path;
       // let routeName = "Home";
-      // if (/^\/databoard/.test(routePath)) {
-      //   // 当切换到数据看板导航时请求游戏列表
-      //   routeName = "Databoard";
-      // } else if (/^\/form/.test(routePath)) {
+      if (/^\/databoard/.test(currentRoutePath)) {
+        // 当切换到数据看板导航时请求数据看板列表
+        store.dispatch("databoardModule/setReportList", { gameBaseId: 1 });
+      }
+      // else if (/^\/form/.test(routePath)) {
       //   routeName = "Admin";
       // } else if (/^\/admin/.test(routePath)) {
       //   routeName = "Admin";
       // }
       // if (routeName !== activedMenu.value) {
-      store.dispatch("appModule/setActivedMenu", route.name);
+      store.commit("appModule/SET_ACTIVED_MENU", route.name);
       // }
       return route.name;
     });
 
     const handleSelect = (key: string) => {
       // console.log("handleSelect", key);
-      store.dispatch("appModule/setActivedMenu", key);
+      store.commit("appModule/SET_ACTIVED_MENU", key);
       router.push({
         name: key,
       });

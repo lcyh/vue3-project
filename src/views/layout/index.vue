@@ -42,7 +42,7 @@ export default defineComponent({
   flex-direction: column;
   background-color: $bg-light;
   min-width: 1420px;
-  height: 100%;
+  min-height: 100vh;
   .body {
     position: relative;
     width: 100%;

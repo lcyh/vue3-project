@@ -44,15 +44,11 @@ const appModule = {
     setNavSide({ commit }: ActionContext<string, RootStateTypes>, value: boolean) {
       commit('SET_NAV_SIDE', value)
     },
-    setActivedMenu({ commit }: ActionContext<string, RootStateTypes>, value: string) {
-      commit('SET_ACTIVED_MENU', value)
-    },
     setShowGameSelect({ commit }: ActionContext<string, RootStateTypes>, value: boolean) {
       commit('SET_SHOW_GAME_SELECT', value)
     },
     setUserInfo({ commit }: ActionContext<string, RootStateTypes>) {
       return new Promise<void>((resolve, reject) => {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         UserAction.getUserInfo().then((res: any) => {
           if (res.data) {
             const { data } = res
@@ -98,7 +94,7 @@ const appModule = {
           reject(err)
         })
       })
-    }
+    },
   }
 }
 export default appModule
