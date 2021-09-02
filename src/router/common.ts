@@ -61,7 +61,7 @@ const routes = [
         component: () => import(/* webpackChunkName: "home" */ '@/views/home/index.vue')
       },
       {
-        path: '/databoard',
+        path: '/databoard/:id?',
         name: 'Databoard',
         meta: { requiresAuth: true, title: '数据看板' },
         component: () => import(/* webpackChunkName: "databoard" */ '@/views/databoard/index.vue'),

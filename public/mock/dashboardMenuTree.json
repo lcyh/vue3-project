@@ -1,55 +1,55 @@
 {
-	"code": 1,
-	"message": null,
-	"data": [
-		{
-			"id": 1,
-			"name": "Overview",
-			"title": "数据概览",
-			"type": 0,
-			"status": "visible",
-			"reportUrl": "http://www.baidu.com",
-			"icon": "iconpiechart"
-		},
-		{
-			"id": 2,
-			"name": "RealTime",
-			"title": "实时看板",
-			"type": 0,
-			"status": "visible",
-			"reportUrl": "http://www.taobao.com",
-			"icon": "iconlinechart"
-		},
-		{
-			"id": 3,
-			"name": "NewBoard",
-			"title": "新增看板",
-			"type": 0,
-			"status": "visible",
-			"reportUrl": "http://www.taobao.com",
-			"icon": "iconadduser"
-		},
-		{
-			"id": 4,
-			"name": "Custom",
-			"title": "自定义看板",
-			"type": 0,
-			"status": "visible",
-			"icon": "iconUserSettings",
-			"children": [
-				{
-					"id": "4-1",
-					"name": "Board1",
-					"title": "自定义看板一",
-					"type": 1,
-					"children": null,
-					"reportUrl": "http://www.taobao.com",
-					"status": "visible",
-					"icon": "iconadduser"
-				}
-			]
-		}
-	],
-	"token": null,
-	"success": true
+  "code": 1,
+  "message": null,
+  "data": [
+    {
+      "id": 1,
+      "name": "Overview",
+      "title": "数据概览",
+      "type": 0,
+      "status": "visible",
+      "reportUrl": "http://www.baidu.com",
+      "icon": "iconpiechart"
+    },
+    {
+      "id": 2,
+      "name": "RealTime",
+      "title": "实时看板",
+      "type": 0,
+      "status": "visible",
+      "reportUrl": "http://www.taobao.com",
+      "icon": "iconlinechart"
+    },
+    {
+      "id": 3,
+      "name": "NewBoard",
+      "title": "新增看板",
+      "type": 0,
+      "status": "visible",
+      "reportUrl": "http://www.taobao.com",
+      "icon": "iconadduser"
+    },
+    {
+      "id": 4,
+      "name": "Custom",
+      "title": "自定义看板",
+      "type": 0,
+      "status": "visible",
+      "icon": "iconUserSettings",
+      "children": [
+        {
+          "id": "41",
+          "name": "Board1",
+          "title": "自定义看板一",
+          "type": 1,
+          "children": null,
+          "reportUrl": "http://www.taobao.com",
+          "status": "visible",
+          "icon": "iconadduser"
+        }
+      ]
+    }
+  ],
+  "token": null,
+  "success": true
 }

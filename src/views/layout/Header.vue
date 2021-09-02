@@ -16,10 +16,13 @@
         @select="handleSelect"
       >
         <el-menu-item index="Home">首页</el-menu-item>
-        <el-menu-item index="Databoard">数据看板</el-menu-item>
-        <el-menu-item index="Form">Form表单</el-menu-item>
-        <el-menu-item index="Count">计数器</el-menu-item>
-        <el-menu-item index="Profile">jsx个人中心</el-menu-item>
+        <el-menu-item
+          v-for="item in menuList"
+          :index="item.name"
+          :key="item.name"
+        >
+          {{ item.title }}
+        </el-menu-item>
       </el-menu>
     </div>
     <div class="header-right">
@@ -39,21 +42,26 @@
   </header>
 </template>
 <script lang="ts">
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { computed, defineComponent } from "vue";
 import { useRouter, useRoute } from "vue-router";
 import { useStore } from "vuex";
 
+const menuList = [
+  // { name: "Home", path: "/home", title: "首页" },
+  { name: "Databoard", path: "/databoard", title: "数据看板" },
+  { name: "Form", path: "/form", title: "Form表单" },
+  { name: "Count", path: "/count", title: "计数器" },
+  { name: "Profile", path: "/profile", title: "jsx个人中心" },
+];
 export default defineComponent({
   setup() {
     const store = useStore();
-    const route = useRoute();
     const router = useRouter();
-    const currentRoutePath: string = route.path;
-    console.log("store---header", store);
     // const activedMenu = computed(() => store.state.appModule.activedMenu);
     const selectedMenu = computed(() => {
-      // const routePath = route.path;
-      // let routeName = "Home";
+      const route = useRoute();
+      const currentRoutePath = route.path;
       if (/^\/databoard/.test(currentRoutePath)) {
         // 当切换到数据看板导航时请求数据看板列表
         store.dispatch("databoardModule/setReportList", { gameBaseId: 1 });
@@ -63,18 +71,32 @@ export default defineComponent({
       // } else if (/^\/admin/.test(routePath)) {
       //   routeName = "Admin";
       // }
-      // if (routeName !== activedMenu.value) {
       store.commit("appModule/SET_ACTIVED_MENU", route.name);
-      // }
       return route.name;
     });
 
     const handleSelect = (key: string) => {
-      // console.log("handleSelect", key);
+      // 设置当前选中的一级菜单menu
       store.commit("appModule/SET_ACTIVED_MENU", key);
-      router.push({
-        name: key,
-      });
+      if (key === "Databoard") {
+        // 切换到数据看板页时，请求获取 数据看板报表菜单列表数据
+        store
+          .dispatch("databoardModule/setReportList", { gameBaseId: 1 })
+          .then((res: any) => {
+            // 默认展示第一个有权限的看板菜单
+            const databoardFirstMenuId = res[0]?.id;
+            console.log("databoardFirstMenuId", databoardFirstMenuId);
+            router.push(
+              `/databoard${
+                databoardFirstMenuId ? `/${databoardFirstMenuId}` : ""
+              }`
+            );
+          });
+      } else {
+        router.push({
+          name: key,
+        });
+      }
     };
 
     const handleCommand = (key: string) => {
@@ -84,6 +106,7 @@ export default defineComponent({
       selectedMenu,
       handleSelect,
       handleCommand,
+      menuList,
     };
   },
 });

@@ -12,12 +12,13 @@
         @select="onSelectMenu"
       >
         <template v-for="item in submenuList">
-          <el-submenu
-            v-if="item.children && item.children.length"
+          <el-sub-menu
+            class="sub-menu"
+            v-if="item.children && item.children.length > 0"
             :index="item.id"
             :key="item.id"
           >
-            <template v-slot:title>
+            <template #title>
               <i
                 :class="[
                   'iconfont',
@@ -28,22 +29,25 @@
               </i>
               <span class="sub-title">{{ item.title }}</span>
             </template>
-            <el-menu-item
-              v-for="el in item.children"
-              :key="el.id"
-              :index="el.id"
-              class="menu-item"
-              v-show="!(el.meta && el.meta.hideFlag)"
-            >
-              <i :class="['iconfont', el.icon]"></i>
-              <template #title>{{ el.title }}</template>
-            </el-menu-item>
-          </el-submenu>
+            <el-menu-item-group>
+              <el-menu-item
+                v-for="el in item.children"
+                :key="el.id"
+                :index="el.id"
+                class="menu-item"
+                @click="handleClickMenuItem(el)"
+              >
+                <i :class="['iconfont', el.icon]"></i>
+                <template #title>{{ el.title }}</template>
+              </el-menu-item>
+            </el-menu-item-group>
+          </el-sub-menu>
           <el-menu-item
             class="menu-item"
             v-else
             :key="item.id"
             :index="item.id"
+            @click="handleClickMenuItem(item)"
           >
             <i :class="['iconfont', item.icon]"></i>
             <template class="nav-text" #title>{{ item.title }}</template>
@@ -64,9 +68,10 @@
   </aside>
 </template>
 <script lang="ts">
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useStore } from "vuex";
 import { defineComponent, computed, ref } from "vue";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 
 const menuIcons: { [key: string]: string } = {
   运营: "iconlinechart",
@@ -79,17 +84,25 @@ export default defineComponent({
   setup() {
     const store = useStore();
     const route = useRoute();
+    const router = useRouter();
     const collapsed = ref(false);
     const submenuList = computed(
       () => store.state.databoardModule.reportMenuList
     );
     const showNavSide = computed(() => route.name === "Databoard");
     const defaultActivedSubmenu = computed(() => {
-      const firstId = store.state.databoardModule.reportMenuList[0]?.id;
+      const { params } = route;
+      let firstId = store.state.databoardModule.reportMenuList[0]?.id;
+      if (params?.id) {
+        firstId = params.id;
+      }
       return firstId;
     });
     const toggleCollapse = () => {
       collapsed.value = !collapsed.value;
+    };
+    const handleClickMenuItem = (menuItem: any) => {
+      router.push(`/databoard/${menuItem.id}`);
     };
     return {
       defaultActivedSubmenu,
@@ -98,6 +111,7 @@ export default defineComponent({
       menuIcons,
       submenuList,
       showNavSide,
+      handleClickMenuItem,
     };
   },
 });

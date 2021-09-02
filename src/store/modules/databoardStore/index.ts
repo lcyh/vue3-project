@@ -89,7 +89,7 @@ const databoardModule = {
             const { data } = res
             // 生成报表左侧导航
             commit('SET_REPORT_LIST', data)
-            resolve()
+            resolve(data)
           } else {
             reject(new Error('游戏报表获取失败'))
           }
