@@ -14,8 +14,7 @@ const countModule: Module<CountState, RootStateTypes> = {
       state.count *= 2
     }
   },
-  actions: {
-  }
+  actions: {}
 }
 
 export default countModule

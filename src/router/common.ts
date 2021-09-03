@@ -43,7 +43,7 @@ export function formatMenusMap() {
   list.forEach((item: MenuState) => {
     const map = recursion(item.children)
     menuMap.set(item.name, map)
-  });
+  })
   return menuMap
 }
 
@@ -64,27 +64,27 @@ const routes = [
         path: '/databoard/:id?',
         name: 'Databoard',
         meta: { requiresAuth: true, title: '数据看板' },
-        component: () => import(/* webpackChunkName: "databoard" */ '@/views/databoard/index.vue'),
+        component: () => import(/* webpackChunkName: "databoard" */ '@/views/databoard/index.vue')
       },
       {
         path: '/form',
         name: 'Form',
         meta: { requiresAuth: true, title: 'Form表单' },
-        component: () => import(/* webpackChunkName: "form" */ '@/views/form.vue'),
+        component: () => import(/* webpackChunkName: "form" */ '@/views/form.vue')
       },
       {
         path: '/count',
         name: 'Count',
         meta: { requiresAuth: true, title: '计数器' },
-        component: () => import(/* webpackChunkName: "count" */ '@/views/count.vue'),
+        component: () => import(/* webpackChunkName: "count" */ '@/views/count.vue')
       },
       {
         path: '/profile',
         name: 'Profile',
         meta: { requiresAuth: true, title: '个人中心' },
-        component: () => import(/* webpackChunkName: "profile" */ '@/views/profile'),
-      },
+        component: () => import(/* webpackChunkName: "profile" */ '@/views/profile')
+      }
     ]
-  },
-];
+  }
+]
 export default routes

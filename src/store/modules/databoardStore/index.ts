@@ -49,7 +49,10 @@ const databoardModule = {
     }
   },
   actions: {
-    setSelectedGame({ commit, state }: ActionContext<DataBoardState, RootStateTypes>, value: string) {
+    setSelectedGame(
+      { commit, state }: ActionContext<DataBoardState, RootStateTypes>,
+      value: string
+    ) {
       const currentGame = state.gameList.find((item) => item.gameBaseId === value)
       if (currentGame) {
         commit('SET_SELECTED_GAME', currentGame)
@@ -57,26 +60,28 @@ const databoardModule = {
     },
     setGameList({ commit, state }: ActionContext<DataBoardState, RootStateTypes>) {
       return new Promise<GameInfo>((resolve, reject) => {
-        DataboardAction.getGameList().then((res) => {
-          if (res.data) {
-            const { data } = res
-            let defaultGame = state.selectedGame
-            if (data.length) {
-              if (!state.selectedGame) {
-                defaultGame = data[0] || null
-                commit('SET_SELECTED_GAME', (defaultGame))
+        DataboardAction.getGameList()
+          .then((res) => {
+            if (res.data) {
+              const { data } = res
+              let defaultGame = state.selectedGame
+              if (data.length) {
+                if (!state.selectedGame) {
+                  defaultGame = data[0] || null
+                  commit('SET_SELECTED_GAME', defaultGame)
+                }
+                commit('SET_GAME_LIST', data)
               }
-              commit('SET_GAME_LIST', data)
+              resolve(defaultGame)
+            } else {
+              reject(new Error('游戏数据获取失败'))
             }
-            resolve(defaultGame)
-          } else {
-            reject(new Error('游戏数据获取失败'))
-          }
-        }).catch((err) => {
-          const msg = err.message || '请求异常'
-          ElMessage.error(msg)
-          reject(err)
-        })
+          })
+          .catch((err) => {
+            const msg = err.message || '请求异常'
+            ElMessage.error(msg)
+            reject(err)
+          })
       })
     },
     setReportList({ commit, getters }: ActionContext<string, RootStateTypes>, value: number) {
@@ -84,20 +89,22 @@ const databoardModule = {
         DataboardAction.getReportList({
           userId: getters?.userInfo?.id || '',
           gameBaseId: value
-        }).then((res) => {
-          if (res.data) {
-            const { data } = res
-            // 生成报表左侧导航
-            commit('SET_REPORT_LIST', data)
-            resolve(data)
-          } else {
-            reject(new Error('游戏报表获取失败'))
-          }
-        }).catch((err) => {
-          const msg = err.message || '请求异常'
-          ElMessage.error(msg)
-          reject(err)
         })
+          .then((res) => {
+            if (res.data) {
+              const { data } = res
+              // 生成报表左侧导航
+              commit('SET_REPORT_LIST', data)
+              resolve(data)
+            } else {
+              reject(new Error('游戏报表获取失败'))
+            }
+          })
+          .catch((err) => {
+            const msg = err.message || '请求异常'
+            ElMessage.error(msg)
+            reject(err)
+          })
       })
     }
   }

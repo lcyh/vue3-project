@@ -3,7 +3,7 @@
 // 标题前面的标记
 @mixin h1-label($color) {
   &:before {
-    content: "";
+    content: '';
     display: inline-block;
     height: 18px;
     width: 3px;

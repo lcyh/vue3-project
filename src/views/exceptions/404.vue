@@ -13,20 +13,20 @@
   </div>
 </template>
 <script lang="ts">
-import { defineComponent } from "vue";
-import { useRouter } from "vue-router";
+import { defineComponent } from 'vue'
+import { useRouter } from 'vue-router'
 
 export default defineComponent({
   setup() {
-    const router = useRouter();
+    const router = useRouter()
     const onClick = () => {
-      router.go(-1);
-    };
+      router.go(-1)
+    }
     return {
-      onClick,
-    };
-  },
-});
+      onClick
+    }
+  }
+})
 </script>
 <style lang="scss" scoped>
 .container {

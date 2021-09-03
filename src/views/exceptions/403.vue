@@ -12,19 +12,19 @@
   </div>
 </template>
 <script lang="ts">
-import { defineComponent } from "vue";
-import Redirect from "@/utils/redirect";
+import { defineComponent } from 'vue'
+import Redirect from '@/utils/redirect'
 
 export default defineComponent({
   setup() {
     const onClick = () => {
-      window.location.href = Redirect.loginUrl;
-    };
+      window.location.href = Redirect.loginUrl
+    }
     return {
-      onClick,
-    };
-  },
-});
+      onClick
+    }
+  }
+})
 </script>
 <style lang="scss" scoped>
 .container {

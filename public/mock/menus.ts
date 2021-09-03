@@ -22,6 +22,6 @@ const menus = [
     path: '/Databoard/realtime',
     component: 'databoard',
     meta: { title: '实时看板', icon: 'el-icon-help' }
-  },
+  }
 ]
 export default menus

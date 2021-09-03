@@ -15,8 +15,8 @@
 </template>
 
 <style lang="scss">
-@import "./assets/iconfont/iconfont.css";
-@import "./assets/styles/common.scss";
+@import './assets/iconfont/iconfont.css';
+@import './assets/styles/common.scss';
 
 #app-container {
   width: 100%;

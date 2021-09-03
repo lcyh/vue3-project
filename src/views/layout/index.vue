@@ -13,12 +13,12 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
-import Header from "./Header.vue";
-import NavSide from "./NavSide.vue";
+import { defineComponent } from 'vue'
+import Header from './Header.vue'
+import NavSide from './NavSide.vue'
 
 export default defineComponent({
-  name: "layout",
+  name: 'layout',
   components: { Header, NavSide },
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   // beforeRouteEnter(to, from, next) {},
@@ -26,8 +26,8 @@ export default defineComponent({
   // beforeRouteUpdate(to, from, next) {},
   setup() {
     // return {};
-  },
-});
+  }
+})
 </script>
 <style lang="scss" scoped>
 .slide-enter-active {

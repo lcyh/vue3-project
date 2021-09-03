@@ -17,29 +17,29 @@
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, computed } from "vue";
+import { defineComponent, computed } from 'vue'
 
 export default defineComponent({
   props: {
     reportName: {
       type: String,
-      default: "",
+      default: ''
     },
     reportUrl: {
       type: String,
-      default: "",
-    },
+      default: ''
+    }
   },
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   setup(props, context) {
-    const url = computed(() => props.reportUrl);
-    console.log("base-report-url", url);
+    const url = computed(() => props.reportUrl)
+    console.log('base-report-url', url)
 
     return {
-      url: url.value,
-    };
-  },
-});
+      url: url.value
+    }
+  }
+})
 </script>
 <style lang="scss" scoped>
 .container {

@@ -22,7 +22,7 @@
                 :class="[
                   'iconfont',
                   'sub-menu-icon',
-                  menuIcons[item.title] ? menuIcons[item.title] : item.icon,
+                  menuIcons[item.title] ? menuIcons[item.title] : item.icon
                 ]"
               >
               </i>
@@ -39,12 +39,7 @@
               <template #title>{{ el.title }}</template>
             </el-menu-item>
           </el-submenu>
-          <el-menu-item
-            class="menu-item"
-            v-else
-            :key="item.name"
-            :index="item.name"
-          >
+          <el-menu-item class="menu-item" v-else :key="item.name" :index="item.name">
             <i :class="['iconfont', item.icon]"></i>
             <template class="nav-text" #title>{{ item.title }}</template>
           </el-menu-item>
@@ -52,12 +47,7 @@
       </el-menu>
       <div class="nav-foot">
         <div @click="toggleCollapse">
-          <i
-            :class="[
-              'iconfont',
-              collapsed ? 'iconicon_expand' : 'iconicon_collapse',
-            ]"
-          ></i>
+          <i :class="['iconfont', collapsed ? 'iconicon_expand' : 'iconicon_collapse']"></i>
         </div>
       </div>
     </aside>
@@ -66,25 +56,25 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed } from "vue";
-import { useRoute } from "vue-router";
-import BaseReport from "@/components/BaseReport.vue";
+import { defineComponent, computed } from 'vue'
+import { useRoute } from 'vue-router'
+import BaseReport from '@/components/BaseReport.vue'
 
 export default defineComponent({
   components: { BaseReport },
   setup() {
-    const route = useRoute();
+    const route = useRoute()
     const activedSubmenu = computed(() => {
-      const { meta } = route;
-      return meta.title || "";
-    });
-    const reportUrl = "";
+      const { meta } = route
+      return meta.title || ''
+    })
+    const reportUrl = ''
     return {
       activedSubmenu,
-      reportUrl,
-    };
-  },
-});
+      reportUrl
+    }
+  }
+})
 </script>
 <style lang="scss" scoped>
 .board-wrapper {

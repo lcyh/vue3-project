@@ -4,8 +4,7 @@ module.exports = {
   lintOnSave: process.env.NODE_ENV !== 'production',
   productionSourceMap: false,
   chainWebpack: (config) => {
-    config.resolve.alias
-      .set('@', path.join(__dirname, 'src'))
+    config.resolve.alias.set('@', path.join(__dirname, 'src'))
   },
   css: {
     loaderOptions: {

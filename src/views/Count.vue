@@ -11,29 +11,29 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, computed, toRefs } from "vue";
-import { useStore } from "vuex";
+import { defineComponent, reactive, computed, toRefs } from 'vue'
+import { useStore } from 'vuex'
 
 export default defineComponent({
-  name: "Count",
+  name: 'Count',
   setup() {
-    const store = useStore();
-    console.log("count", store);
+    const store = useStore()
+    console.log('count', store)
     const reactiveData = reactive({
       text: computed(() => store.state.text),
-      count: computed(() => store.state.countModule.count),
-    });
+      count: computed(() => store.state.countModule.count)
+    })
 
     const double = () => {
-      store.commit("countModule/DOUBLE_COUNT");
-    };
+      store.commit('countModule/DOUBLE_COUNT')
+    }
 
     return {
       ...toRefs(reactiveData),
-      double,
-    };
-  },
-});
+      double
+    }
+  }
+})
 </script>
 
 <style scoped lang="scss">

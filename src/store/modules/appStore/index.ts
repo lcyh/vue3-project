@@ -49,25 +49,27 @@ const appModule = {
     },
     setUserInfo({ commit }: ActionContext<string, RootStateTypes>) {
       return new Promise<void>((resolve, reject) => {
-        UserAction.getUserInfo().then((res: any) => {
-          if (res.data) {
-            const { data } = res
-            commit('SET_USER_INFO', {
-              id: data.id,
-              role: data.role,
-              roleName: data.roleName,
-              userName: data.userName,
-              email: data.email
-            })
-            resolve()
-          } else {
-            reject(new Error('用户信息获取失败'))
-          }
-        }).catch((err) => {
-          const msg = err.message || '请求异常'
-          ElMessage.error(msg)
-          reject(err)
-        })
+        UserAction.getUserInfo()
+          .then((res: any) => {
+            if (res.data) {
+              const { data } = res
+              commit('SET_USER_INFO', {
+                id: data.id,
+                role: data.role,
+                roleName: data.roleName,
+                userName: data.userName,
+                email: data.email
+              })
+              resolve()
+            } else {
+              reject(new Error('用户信息获取失败'))
+            }
+          })
+          .catch((err) => {
+            const msg = err.message || '请求异常'
+            ElMessage.error(msg)
+            reject(err)
+          })
       })
     },
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -75,26 +77,28 @@ const appModule = {
       return new Promise<any>((resolve, reject) => {
         UserAction.getUserPermission({
           userId: state.userInfo?.id
-        }).then((res: any) => {
-          if (res.data) {
-            const { data } = res
-            console.log('setUserPermission', data);
-
-            // commit('SET_MENU_LIST', result.menu)
-            // commit('SET_MENU_MAP', result.map)
-            // commit('SET_ADD_ROUTERS', result.routes)
-            // commit('SET_HISTORY_MENU_LIST', data)
-            // resolve(result.routes)
-          } else {
-            reject(new Error('用户菜单列表获取失败'))
-          }
-        }).catch((err: any) => {
-          const msg = err.message || '用户菜单列表获取失败'
-          ElMessage.error(msg)
-          reject(err)
         })
+          .then((res: any) => {
+            if (res.data) {
+              const { data } = res
+              console.log('setUserPermission', data)
+
+              // commit('SET_MENU_LIST', result.menu)
+              // commit('SET_MENU_MAP', result.map)
+              // commit('SET_ADD_ROUTERS', result.routes)
+              // commit('SET_HISTORY_MENU_LIST', data)
+              // resolve(result.routes)
+            } else {
+              reject(new Error('用户菜单列表获取失败'))
+            }
+          })
+          .catch((err: any) => {
+            const msg = err.message || '用户菜单列表获取失败'
+            ElMessage.error(msg)
+            reject(err)
+          })
       })
-    },
+    }
   }
 }
 export default appModule

@@ -21,7 +21,7 @@
               :class="[
                 'iconfont',
                 'sub-menu-icon',
-                menuIcons[item.title] ? menuIcons[item.title] : item.icon,
+                menuIcons[item.title] ? menuIcons[item.title] : item.icon
               ]"
             >
             </i>
@@ -38,12 +38,7 @@
             <template #title>{{ el.title }}</template>
           </el-menu-item>
         </el-submenu>
-        <el-menu-item
-          class="menu-item"
-          v-else
-          :key="item.name"
-          :index="item.name"
-        >
+        <el-menu-item class="menu-item" v-else :key="item.name" :index="item.name">
           <i :class="['iconfont', item.icon]"></i>
           <template class="nav-text" #title>{{ item.title }}</template>
         </el-menu-item>
@@ -51,46 +46,41 @@
     </el-menu>
     <div class="nav-foot">
       <div @click="toggleCollapse">
-        <i
-          :class="[
-            'iconfont',
-            collapsed ? 'iconicon_expand' : 'iconicon_collapse',
-          ]"
-        ></i>
+        <i :class="['iconfont', collapsed ? 'iconicon_expand' : 'iconicon_collapse']"></i>
       </div>
     </div>
   </aside>
 </template>
 <script lang="ts">
-import { defineComponent, computed, ref } from "vue";
-import { useRoute } from "vue-router";
+import { defineComponent, computed, ref } from 'vue'
+import { useRoute } from 'vue-router'
 
 const menuIcons: { [key: string]: string } = {
-  运营: "iconlinechart",
-  研发: "iconpiechart",
-  流量: "iconadduser",
-  专题: "iconspecial",
-};
+  运营: 'iconlinechart',
+  研发: 'iconpiechart',
+  流量: 'iconadduser',
+  专题: 'iconspecial'
+}
 
 export default defineComponent({
   setup() {
-    const route = useRoute();
-    const collapsed = ref(false);
+    const route = useRoute()
+    const collapsed = ref(false)
     const activedSubmenu = computed(() => {
-      const routeName = route.name;
-      return routeName;
-    });
+      const routeName = route.name
+      return routeName
+    })
     const toggleCollapse = () => {
-      collapsed.value = !collapsed.value;
-    };
+      collapsed.value = !collapsed.value
+    }
     return {
       activedSubmenu,
       collapsed,
       toggleCollapse,
-      menuIcons,
-    };
-  },
-});
+      menuIcons
+    }
+  }
+})
 </script>
 <style lang="scss" scoped>
 .aside-wrapper {

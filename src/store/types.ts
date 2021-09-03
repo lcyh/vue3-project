@@ -7,7 +7,7 @@ export default interface RootStateTypes {
 }
 
 export interface AllStateTypes extends RootStateTypes {
-  CountState: CountState,
-  AppState: AppState,
+  CountState: CountState
+  AppState: AppState
   databoardState: DataBoardState
 }

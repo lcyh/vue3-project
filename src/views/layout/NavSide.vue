@@ -23,7 +23,7 @@
                 :class="[
                   'iconfont',
                   'sub-menu-icon',
-                  menuIcons[item.title] ? menuIcons[item.title] : item.icon,
+                  menuIcons[item.title] ? menuIcons[item.title] : item.icon
                 ]"
               >
               </i>
@@ -56,12 +56,7 @@
       </el-menu>
       <div class="nav-foot">
         <div @click="toggleCollapse">
-          <i
-            :class="[
-              'iconfont',
-              collapsed ? 'iconicon_expand' : 'iconicon_collapse',
-            ]"
-          ></i>
+          <i :class="['iconfont', collapsed ? 'iconicon_expand' : 'iconicon_collapse']"></i>
         </div>
       </div>
     </div>
@@ -69,41 +64,39 @@
 </template>
 <script lang="ts">
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useStore } from "vuex";
-import { defineComponent, computed, ref } from "vue";
-import { useRoute, useRouter } from "vue-router";
+import { useStore } from 'vuex'
+import { defineComponent, computed, ref } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 
 const menuIcons: { [key: string]: string } = {
-  运营: "iconlinechart",
-  研发: "iconpiechart",
-  流量: "iconadduser",
-  专题: "iconspecial",
-};
+  运营: 'iconlinechart',
+  研发: 'iconpiechart',
+  流量: 'iconadduser',
+  专题: 'iconspecial'
+}
 
 export default defineComponent({
   setup() {
-    const store = useStore();
-    const route = useRoute();
-    const router = useRouter();
-    const collapsed = ref(false);
-    const submenuList = computed(
-      () => store.state.databoardModule.reportMenuList
-    );
-    const showNavSide = computed(() => route.name === "Databoard");
+    const store = useStore()
+    const route = useRoute()
+    const router = useRouter()
+    const collapsed = ref(false)
+    const submenuList = computed(() => store.state.databoardModule.reportMenuList)
+    const showNavSide = computed(() => route.name === 'Databoard')
     const defaultActivedSubmenu = computed(() => {
-      const { params } = route;
-      let firstId = store.state.databoardModule.reportMenuList[0]?.id;
+      const { params } = route
+      let firstId = store.state.databoardModule.reportMenuList[0]?.id
       if (params?.id) {
-        firstId = params.id;
+        firstId = params.id
       }
-      return firstId;
-    });
+      return firstId
+    })
     const toggleCollapse = () => {
-      collapsed.value = !collapsed.value;
-    };
+      collapsed.value = !collapsed.value
+    }
     const handleClickMenuItem = (menuItem: any) => {
-      router.push(`/databoard/${menuItem.id}`);
-    };
+      router.push(`/databoard/${menuItem.id}`)
+    }
     return {
       defaultActivedSubmenu,
       collapsed,
@@ -111,10 +104,10 @@ export default defineComponent({
       menuIcons,
       submenuList,
       showNavSide,
-      handleClickMenuItem,
-    };
-  },
-});
+      handleClickMenuItem
+    }
+  }
+})
 </script>
 <style lang="scss" scoped>
 .aside-wrapper {
