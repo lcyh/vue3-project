@@ -21,7 +21,7 @@ EditorConfig 有助于为不同 IDE 编辑器上处理同一项目的多个开�
 eslint airbnb
 ```
 
-## husky + lint-staged代码提交规范 
+## husky + lint-staged 代码规范 
 ```js
 1.husky —— Git Hook 工具，可以设置在 git 各个阶段（pre-commit、commit-msg、pre-push 等）触发我们的命令
 2.lint-staged —— 在 git 暂存的文件上运行 linters
@@ -60,7 +60,24 @@ yarn add lint-staged -D
 
 ```
 
+## 集成 Commitizen 实现规范提交
+```js
+1.安装 Commitizen
+yarn add commitizen -D
+2.成功安装 Commitizen 后，我们用 cz-conventional-changelog 适配器来初始化项目：
+npx commitizen init cz-conventional-changelog --save-dev --save-exact
+```
+这行命令做了两件事：
+* 安装 cz-conventional-changelog 到开发依赖（devDependencies）
+* 在 package.json 中增加了 config.commitizen
+```
+"config": {
+  "commitizen": {
+    "path": "./node_modules/cz-conventional-changelog"
+  }
+}
 
+```
 ## Project setup
 
 ```
