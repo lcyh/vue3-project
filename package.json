@@ -6,7 +6,11 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "test:unit": "vue-cli-service test:unit",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "prepare": "husky install"
+  },
+  "lint-staged":{
+    "*.{vue,.js,.tx,.jsx,.tsx}":"eslint --fix"
   },
   "dependencies": {
     "@types/nprogress": "^0.2.0",
@@ -43,6 +47,7 @@
     "prettier": "^2.3.2",
     "sass": "^1.26.5",
     "sass-loader": "^8.0.2",
-    "typescript": "~4.1.5"
+    "typescript": "~4.1.5",
+    "husky": "^7.0.0"
   }
 }
