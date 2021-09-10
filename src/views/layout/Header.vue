@@ -1,10 +1,34 @@
 <template>
-  <header class="header clearfix">
+  <header class="header">
     <div class="logo-wrap">
       <router-link class="link" to="/">
         <i class="iconfont iconbilibili"></i>
         <p class="logo-text">BI系统</p>
       </router-link>
+    </div>
+    <div class="game-select">
+      <el-select
+        v-model="selectedGame.gameBaseId"
+        popper-class="select-dropdown"
+        class="select-wrap"
+        placeholder="请选择游戏"
+        filterable
+      >
+        <el-option
+          v-for="item in gameList"
+          :key="item.gameBaseId"
+          :label="item.gameBaseName"
+          :value="item.gameBaseId"
+        >
+          <img
+            class="select-icon"
+            :src="item.icon"
+            :alt="item.gameBaseName"
+            onerror="../../assets/images/bili.png"
+          />
+          <span class="select-label">{{ item.gameBaseName }}</span>
+        </el-option>
+      </el-select>
     </div>
     <div class="header-menus">
       <el-menu
@@ -39,9 +63,10 @@
 </template>
 <script lang="ts">
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { computed, defineComponent } from 'vue'
+import { computed, defineComponent, onMounted, reactive, toRefs } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { useStore } from 'vuex'
+import { getGameList } from '@/api/modules/databoard'
 
 const menuList = [
   // { name: "Home", path: "/home", title: "首页" },
@@ -54,6 +79,15 @@ export default defineComponent({
   setup() {
     const store = useStore()
     const router = useRouter()
+    const gameData: any = reactive({
+      gameList: [],
+      selectedGame: {}
+    })
+    onMounted(async () => {
+      const res = await getGameList()
+      gameData.gameList = res.data
+      gameData.selectedGame = { ...gameData.gameList[0] }
+    })
     // const activedMenu = computed(() => store.state.appModule.activedMenu);
     const selectedMenu = computed(() => {
       const route = useRoute()
@@ -70,7 +104,9 @@ export default defineComponent({
       store.commit('appModule/SET_ACTIVED_MENU', route.name)
       return route.name
     })
-
+    const onChangeGame = () => {
+      console.log('onChangeGame')
+    }
     const handleSelect = (key: string) => {
       // 设置当前选中的一级菜单menu
       store.commit('appModule/SET_ACTIVED_MENU', key)
@@ -96,7 +132,9 @@ export default defineComponent({
       selectedMenu,
       handleSelect,
       handleCommand,
-      menuList
+      menuList,
+      ...toRefs(gameData),
+      onChangeGame
     }
   }
 })
@@ -131,6 +169,10 @@ export default defineComponent({
       padding-left: 10px;
       color: $fc-light;
     }
+  }
+  .game-select {
+    float: left;
+    margin-top: 10px;
   }
   .header-menus {
     float: left;
@@ -173,6 +215,30 @@ export default defineComponent({
       border-radius: 8px;
       vertical-align: middle;
     }
+  }
+}
+.select-dropdown {
+  .el-select-dropdown__item {
+    height: 42px;
+    line-height: 42px;
+    padding: 3px 10px;
+  }
+  .select-icon {
+    display: inline-block;
+    width: 36px;
+    height: 36px;
+    border-radius: 3px;
+    vertical-align: middle;
+    background-color: $placeholder;
+  }
+  .select-label {
+    display: inline-block;
+    padding-left: 10px;
+    vertical-align: middle;
+    width: 140px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
   }
 }
 </style>

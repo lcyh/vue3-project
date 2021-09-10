@@ -2,7 +2,7 @@
 import { ActionContext } from 'vuex'
 import { ElMessage } from 'element-plus'
 import DataBoardState, { GameInfo, DataboardMenu } from './types'
-import DataboardAction from '@/api/modules/databoard'
+import { getGameList, getReportList } from '@/api/modules/databoard'
 import RootStateTypes from '../../types'
 
 // 根据用户看板权限生成相应的导航列表
@@ -60,7 +60,7 @@ const databoardModule = {
     },
     setGameList({ commit, state }: ActionContext<DataBoardState, RootStateTypes>) {
       return new Promise<GameInfo>((resolve, reject) => {
-        DataboardAction.getGameList()
+        getGameList()
           .then((res) => {
             if (res.data) {
               const { data } = res
@@ -86,7 +86,7 @@ const databoardModule = {
     },
     setReportList({ commit, getters }: ActionContext<string, RootStateTypes>, value: number) {
       return new Promise<void>((resolve, reject) => {
-        DataboardAction.getReportList({
+        getReportList({
           userId: getters?.userInfo?.id || '',
           gameBaseId: value
         })

@@ -3,7 +3,7 @@
  */
 import Http from '../http'
 
-function getGameList(params = {}) {
+export function getGameList(params = {}) {
   return Http.create({
     method: 'get',
     // url: '/game/gameBaseList',
@@ -12,15 +12,10 @@ function getGameList(params = {}) {
   })
 }
 
-function getReportList(params: { userId: number; gameBaseId: number }) {
+export function getReportList(params: { userId: number; gameBaseId: number }) {
   return Http.create({
     method: 'get',
     url: '/mock/dashboardMenuTree.json',
     params
   })
-}
-
-export default {
-  getGameList,
-  getReportList
 }
