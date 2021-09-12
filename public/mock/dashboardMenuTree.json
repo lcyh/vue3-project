@@ -48,6 +48,24 @@
           "icon": "iconadduser"
         }
       ]
+    },
+    {
+      "id": 5,
+      "name": "Economics",
+      "title": "经济看板",
+      "type": 0,
+      "status": "visible",
+      "reportUrl": "http://www.taobao.com",
+      "icon": "iconlinechart"
+    },
+    {
+      "id": 6,
+      "name": "versionAnalysis",
+      "title": "版本分析",
+      "type": 0,
+      "status": "visible",
+      "reportUrl": "http://www.taobao.com",
+      "icon": "iconadduser"
     }
   ],
   "token": null,

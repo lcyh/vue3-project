@@ -9,6 +9,7 @@
     <div class="game-select">
       <el-select
         v-model="selectedGame.gameBaseId"
+        @change="onChangeGame"
         popper-class="select-dropdown"
         class="select-wrap"
         placeholder="请选择游戏"
@@ -63,7 +64,7 @@
 </template>
 <script lang="ts">
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { computed, defineComponent, onMounted, reactive, toRefs } from 'vue'
+import { computed, defineComponent, onMounted, reactive, ref, toRefs } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { useStore } from 'vuex'
 import { getGameList } from '@/api/modules/databoard'
@@ -79,14 +80,15 @@ export default defineComponent({
   setup() {
     const store = useStore()
     const router = useRouter()
-    const gameData: any = reactive({
-      gameList: [],
-      selectedGame: {}
+    const isClickMenu = ref(false)
+    const reactiveData: any = reactive({
+      selectedGame: {},
+      gameList: []
     })
     onMounted(async () => {
       const res = await getGameList()
-      gameData.gameList = res.data
-      gameData.selectedGame = { ...gameData.gameList[0] }
+      reactiveData.gameList = res.data
+      reactiveData.selectedGame = { ...reactiveData.gameList[0] }
     })
     // const activedMenu = computed(() => store.state.appModule.activedMenu);
     const selectedMenu = computed(() => {
@@ -94,30 +96,43 @@ export default defineComponent({
       const currentRoutePath = route.path
       if (/^\/databoard/.test(currentRoutePath)) {
         // 当切换到数据看板导航时请求数据看板列表
-        store.dispatch('databoardModule/setReportList', { gameBaseId: 1 })
+        if (!isClickMenu.value) {
+          console.log('进来了')
+          // 防止点击 数据看板菜单时请求两次接口
+          store.dispatch('databoardModule/setReportList', reactiveData.selectedGame?.gameBaseId)
+        }
       }
-      // else if (/^\/form/.test(routePath)) {
-      //   routeName = "Admin";
-      // } else if (/^\/admin/.test(routePath)) {
-      //   routeName = "Admin";
-      // }
-      store.commit('appModule/SET_ACTIVED_MENU', route.name)
       return route.name
     })
-    const onChangeGame = () => {
-      console.log('onChangeGame')
+    const handleSetReportList = (currentGame?: any) => {
+      const currentSelectedGame = currentGame || reactiveData.selectedGame
+      store
+        .dispatch('databoardModule/setReportList', currentSelectedGame.gameBaseId)
+        .then((res: any) => {
+          // 默认展示第一个有权限的看板菜单
+          // console.log('res', res)
+          let databoardFirstMenuId = res[0]?.id
+          if (res && res[0] && res[0].children) {
+            databoardFirstMenuId = res[0]?.children[0]?.id || res[0]?.id
+          }
+          router.push(`/databoard${databoardFirstMenuId ? `/${databoardFirstMenuId}` : ''}`)
+        })
+    }
+    const onChangeGame = (gameId: number) => {
+      // isClickMenu.value = true
+      console.log('gameId', gameId)
+      const currentGame = reactiveData.gameList.find((item: any) => item.gameBaseId === gameId)
+      // reactiveData.selectedGame = currentGame
+      store.commit('databoardModule/SET_SELECTED_GAME', currentGame)
+      handleSetReportList(currentGame)
     }
     const handleSelect = (key: string) => {
+      isClickMenu.value = true
       // 设置当前选中的一级菜单menu
       store.commit('appModule/SET_ACTIVED_MENU', key)
       if (key === 'Databoard') {
         // 切换到数据看板页时，请求获取 数据看板报表菜单列表数据
-        store.dispatch('databoardModule/setReportList', { gameBaseId: 1 }).then((res: any) => {
-          // 默认展示第一个有权限的看板菜单
-          const databoardFirstMenuId = res[0]?.id
-          console.log('databoardFirstMenuId', databoardFirstMenuId)
-          router.push(`/databoard${databoardFirstMenuId ? `/${databoardFirstMenuId}` : ''}`)
-        })
+        handleSetReportList()
       } else {
         router.push({
           name: key
@@ -133,8 +148,8 @@ export default defineComponent({
       handleSelect,
       handleCommand,
       menuList,
-      ...toRefs(gameData),
-      onChangeGame
+      onChangeGame,
+      ...toRefs(reactiveData)
     }
   }
 })

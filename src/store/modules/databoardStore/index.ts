@@ -42,22 +42,12 @@ const databoardModule = {
       state.selectedGame = value
     },
     SET_REPORT_LIST(state: DataBoardState, list = []) {
-      console.log('SET_REPORT_LIST', list)
       // const menus = formatMenuReport(list)
       // console.log('freportMap', menus)
       state.reportMenuList = list
     }
   },
   actions: {
-    setSelectedGame(
-      { commit, state }: ActionContext<DataBoardState, RootStateTypes>,
-      value: string
-    ) {
-      const currentGame = state.gameList.find((item) => item.gameBaseId === value)
-      if (currentGame) {
-        commit('SET_SELECTED_GAME', currentGame)
-      }
-    },
     setGameList({ commit, state }: ActionContext<DataBoardState, RootStateTypes>) {
       return new Promise<GameInfo>((resolve, reject) => {
         getGameList()
@@ -93,9 +83,15 @@ const databoardModule = {
           .then((res) => {
             if (res.data) {
               const { data } = res
+              let list = []
+              if (value < 2) {
+                list = data.slice(0, value)
+              } else {
+                list = data.slice(value, 6)
+              }
               // 生成报表左侧导航
-              commit('SET_REPORT_LIST', data)
-              resolve(data)
+              commit('SET_REPORT_LIST', list)
+              resolve(list)
             } else {
               reject(new Error('游戏报表获取失败'))
             }
