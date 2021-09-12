@@ -8,7 +8,7 @@
     </div>
     <div class="game-select">
       <el-select
-        v-model="selectedGame.gameBaseId"
+        :model-value="selectedGame.gameBaseId"
         @change="onChangeGame"
         popper-class="select-dropdown"
         class="select-wrap"
@@ -85,32 +85,17 @@ export default defineComponent({
       selectedGame: {},
       gameList: []
     })
+    // const activedMenu = computed(() => store.state.appModule.activedMenu);
     onMounted(async () => {
       const res = await getGameList()
       reactiveData.gameList = res.data
       reactiveData.selectedGame = { ...reactiveData.gameList[0] }
     })
-    // const activedMenu = computed(() => store.state.appModule.activedMenu);
-    const selectedMenu = computed(() => {
-      const route = useRoute()
-      const currentRoutePath = route.path
-      if (/^\/databoard/.test(currentRoutePath)) {
-        // 当切换到数据看板导航时请求数据看板列表
-        if (!isClickMenu.value) {
-          console.log('进来了')
-          // 防止点击 数据看板菜单时请求两次接口
-          store.dispatch('databoardModule/setReportList', reactiveData.selectedGame?.gameBaseId)
-        }
-      }
-      return route.name
-    })
-    const handleSetReportList = (currentGame?: any) => {
-      const currentSelectedGame = currentGame || reactiveData.selectedGame
+    const handleSetReportList = () => {
       store
-        .dispatch('databoardModule/setReportList', currentSelectedGame.gameBaseId)
+        .dispatch('databoardModule/setReportList', reactiveData.selectedGame.gameBaseId)
         .then((res: any) => {
           // 默认展示第一个有权限的看板菜单
-          // console.log('res', res)
           let databoardFirstMenuId = res[0]?.id
           if (res && res[0] && res[0].children) {
             databoardFirstMenuId = res[0]?.children[0]?.id || res[0]?.id
@@ -118,13 +103,26 @@ export default defineComponent({
           router.push(`/databoard${databoardFirstMenuId ? `/${databoardFirstMenuId}` : ''}`)
         })
     }
+    const selectedMenu = computed(() => {
+      const route = useRoute()
+      const currentRoutePath = route.path
+      if (/^\/databoard/.test(currentRoutePath)) {
+        // 当切换到数据看板导航时请求数据看板列表
+        console.log('进来了')
+        if (!isClickMenu.value && reactiveData?.selectedGame?.gameBaseId) {
+          // 防止点击 数据看板菜单时请求两次接口
+          handleSetReportList()
+        }
+      }
+      return route.name
+    })
+
     const onChangeGame = (gameId: number) => {
-      // isClickMenu.value = true
-      console.log('gameId', gameId)
+      isClickMenu.value = true
       const currentGame = reactiveData.gameList.find((item: any) => item.gameBaseId === gameId)
-      // reactiveData.selectedGame = currentGame
+      reactiveData.selectedGame = currentGame
       store.commit('databoardModule/SET_SELECTED_GAME', currentGame)
-      handleSetReportList(currentGame)
+      handleSetReportList()
     }
     const handleSelect = (key: string) => {
       isClickMenu.value = true
