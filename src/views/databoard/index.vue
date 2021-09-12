@@ -1,6 +1,6 @@
 <template>
   <div class="board-wrapper">
-    数据看板id：{{ reportName }}-{{ reportId }}
+    数据看板id：{{ reportName }}-{{ reportId }}={{ reportUrl }}
     <base-report :targetUrl="reportUrl" :reportName="reportName" />
   </div>
 </template>

@@ -1,9 +1,9 @@
 <template>
   <div class="container-fulled">
     <Header />
-    <section class="body">
+    <section class="content">
       <NavSide />
-      <main class="wrapper">
+      <main class="main">
         <transition name="slide">
           <router-view />
         </transition>
@@ -43,15 +43,14 @@ export default defineComponent({
   background-color: $bg-light;
   min-width: 1420px;
   min-height: 100vh;
-  .body {
+  .content {
     position: relative;
     width: 100%;
     flex: auto;
     overflow: hidden;
     display: flex;
-    .wrapper {
+    .main {
       flex: 1;
-      height: 100%;
       overflow-y: auto;
     }
   }

@@ -8,7 +8,7 @@
       "title": "数据概览",
       "type": 0,
       "status": "visible",
-      "reportUrl": "http://www.baidu.com",
+      "reportUrl": "https://chu1204505056.gitee.io/admin-pro/#/other/iframe/search",
       "icon": "iconpiechart"
     },
     {
@@ -17,7 +17,7 @@
       "title": "实时看板",
       "type": 0,
       "status": "visible",
-      "reportUrl": "http://www.taobao.com",
+      "reportUrl": "https://github.com/lcyh/vue3-project",
       "icon": "iconlinechart"
     },
     {
@@ -26,7 +26,7 @@
       "title": "新增看板",
       "type": 0,
       "status": "visible",
-      "reportUrl": "http://www.taobao.com",
+      "reportUrl": "https://element.eleme.cn/#/zh-CN/component/select",
       "icon": "iconadduser"
     },
     {
@@ -43,7 +43,7 @@
           "title": "自定义看板一",
           "type": 1,
           "children": null,
-          "reportUrl": "http://www.taobao.com",
+          "reportUrl": "https://www.taobao.com",
           "status": "visible",
           "icon": "iconadduser"
         }
@@ -55,7 +55,7 @@
       "title": "经济看板",
       "type": 0,
       "status": "visible",
-      "reportUrl": "http://www.taobao.com",
+      "reportUrl": "https://vue-next-template-explorer.netlify.app/",
       "icon": "iconlinechart"
     },
     {
@@ -64,7 +64,7 @@
       "title": "版本分析",
       "type": 0,
       "status": "visible",
-      "reportUrl": "http://www.taobao.com",
+      "reportUrl": "https://armour.github.io/vue-typescript-admin-docs/zh/",
       "icon": "iconadduser"
     }
   ],

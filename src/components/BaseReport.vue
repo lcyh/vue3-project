@@ -25,18 +25,18 @@ export default defineComponent({
       type: String,
       default: ''
     },
-    reportUrl: {
+    targetUrl: {
       type: String,
       default: ''
     }
   },
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   setup(props, context) {
-    const url = computed(() => props.reportUrl)
+    const url = computed(() => props.targetUrl)
     console.log('base-report-url', url)
 
     return {
-      url: url.value
+      url
     }
   }
 })
