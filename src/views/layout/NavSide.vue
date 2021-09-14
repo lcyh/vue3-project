@@ -75,7 +75,7 @@ export default defineComponent({
     const router = useRouter()
     const collapsed = ref(false)
     const submenuList = computed(() => store.state.databoardModule.reportMenuList)
-    const showNavSide = computed(() => route.name === 'Databoard')
+    const showNavSide = computed(() => route.name === 'DataboardDetail')
     const defaultActivedSubmenu = computed(() => {
       const { params } = route
       let firstId = submenuList.value[0]?.id

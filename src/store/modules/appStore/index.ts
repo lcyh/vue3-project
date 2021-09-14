@@ -16,6 +16,37 @@ routeModules.forEach((item: any) => {
     databoardRoute = Object.assign(databoardRoute, item)
   }
 })
+function handleRouteMap() {
+  const map: any = {}
+  routeModules.forEach((item: any) => {
+    map[item.name] = item
+  })
+  return map;
+}
+function handleAddRoute(routers: any) {
+  // routeModules
+  const addRoutes: any = [];
+  const routeMap = handleRouteMap()
+  if (routers.length) {
+    routers.forEach((route: any) => {
+      const hasRoute = routeMap[route.name]
+      if (hasRoute) {
+        addRoutes.push(hasRoute)
+      }
+    })
+  }
+
+  addRoutes.push({
+    path: "/:path(.*)",
+    name: "NotFound",
+    component: NotFound,
+    meta: { hidden: true }
+  })
+  console.log('routes', addRoutes);
+
+  return { routes: addRoutes }
+}
+
 const appModule = {
   namespaced: true,
   state: {
@@ -59,25 +90,9 @@ const appModule = {
     },
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     SET_ADD_ROUTERS: (state: AppState, routers: any[]) => {
-      const routes: any = [];
-      if (routers.length) {
-        routers.forEach((route: any) => {
-          if (route.name === 'Databoard') {
-            routes.push(databoardRoute)
-          } else {
-            routes.push(route)
-          }
-        })
-      }
-      routers.push({
-        path: "/:path(.*)",
-        name: "NotFound",
-        component: NotFound,
-        meta: { hidden: true }
-      })
+      const { routes }: any = handleAddRoute(routers)
       state.permission.dynamicRoutes = routes
       console.log('state.permission.dynamicRoutes-1', state.permission.dynamicRoutes);
-
       state.hasAddRoute = true
     },
   },
@@ -145,15 +160,16 @@ const appModule = {
             if (res.data) {
               const { data } = res
               const { list } = data;
-              const result = {
-                menu: list,
-                map: list,
-                routes: list,
-              }
+              // const result = {
+              //   menu: list,
+              //   map: list,
+              //   routes: list,
+              // }
               // commit('SET_MENU_LIST', result.menu)
               // commit('SET_MENU_MAP', result.map)
-              commit('SET_ADD_ROUTERS', result.routes)
-              resolve(result.routes)
+              const { routes } = handleAddRoute(list)
+              commit('SET_ADD_ROUTERS', routes)
+              resolve(routes)
             } else {
               reject(new Error('用户菜单列表获取失败'))
             }

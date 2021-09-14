@@ -66,24 +66,24 @@ const constantRoutes = [
         meta: { showNavSide: false, title: '首页' },
         component: () => import(/* webpackChunkName: "home" */ '@/views/home/index.vue')
       },
-      {
-        path: '/form',
-        name: 'Form',
-        meta: { requiresAuth: true, title: 'Form表单' },
-        component: () => import(/* webpackChunkName: "form" */ '@/views/form.vue')
-      },
-      {
-        path: '/count',
-        name: 'Count',
-        meta: { requiresAuth: true, title: '计数器' },
-        component: () => import(/* webpackChunkName: "count" */ '@/views/count.vue')
-      },
-      {
-        path: '/profile',
-        name: 'Profile',
-        meta: { requiresAuth: true, title: '个人中心' },
-        component: () => import(/* webpackChunkName: "profile" */ '@/views/profile')
-      }
+      // {
+      //   path: '/form',
+      //   name: 'Form',
+      //   meta: { requiresAuth: true, title: 'Form表单' },
+      //   component: () => import(/* webpackChunkName: "form" */ '@/views/form.vue')
+      // },
+      // {
+      //   path: '/count',
+      //   name: 'Count',
+      //   meta: { requiresAuth: true, title: '计数器' },
+      //   component: () => import(/* webpackChunkName: "count" */ '@/views/count.vue')
+      // },
+      // {
+      //   path: '/profile',
+      //   name: 'Profile',
+      //   meta: { requiresAuth: true, title: '个人中心' },
+      //   component: () => import(/* webpackChunkName: "profile" */ '@/views/profile')
+      // }
     ]
   },
   {

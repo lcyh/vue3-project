@@ -1,6 +1,7 @@
 export default [
   {
     path: '/databoard',
+    name: 'Databoard',
     redirect: '/databoard/detail',
     meta: {
       title: '数据看板',
@@ -10,7 +11,7 @@ export default [
     children: [
       {
         path: 'detail/:id?',
-        name: 'Databoard',
+        name: 'DataboardDetail',
         meta: { requiresAuth: true, title: '数据报表' },
         component: () => import(/* webpackChunkName: "databoard" */ '@/views/databoard/index.vue')
       },

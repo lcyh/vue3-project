@@ -71,10 +71,10 @@ import { getGameList } from '@/api/modules/databoard'
 
 const menuList = [
   // { name: "Home", path: "/home", title: "首页" },
-  { name: 'Databoard', path: '/databoard', title: '数据看板' },
-  { name: 'Form', path: '/form', title: 'Form表单' },
-  { name: 'Count', path: '/count', title: '计数器' },
-  { name: 'Profile', path: '/profile', title: 'jsx个人中心' }
+  { name: 'DataboardDetail', path: '/databoard/detail', title: '数据看板' },
+  { name: 'FormDetail', path: '/form/form-detail', title: 'Form表单' },
+  { name: 'CountNumber', path: '/count/count-number', title: '计数器' },
+  { name: 'Profile', path: '/person/profile', title: 'jsx个人中心' }
 ]
 export default defineComponent({
   setup() {
@@ -116,6 +116,8 @@ export default defineComponent({
           handleSetReportList()
         }
       }
+      console.log('route', route)
+
       return route.name
     })
 
@@ -130,7 +132,7 @@ export default defineComponent({
       isClickMenu.value = true
       // 设置当前选中的一级菜单menu
       store.commit('appModule/SET_ACTIVED_MENU', key)
-      if (key === 'Databoard') {
+      if (key === 'DataboardDetail') {
         // 切换到数据看板页时，请求获取 数据看板报表菜单列表数据
         handleSetReportList()
       } else {

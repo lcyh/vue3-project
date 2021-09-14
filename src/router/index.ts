@@ -46,6 +46,7 @@ router.beforeEach(async (to: RouteLocationNormalized, _: RouteLocationNormalized
           // Set the replace: true, so the navigation will not leave a history record
           next({ ...to, replace: true })
         } catch (err) {
+          console.log('---err---', err);
           // Remove token and redirect to login page
           store.dispatch("appModule/setRemoveToken")
           ElMessage.error(err || 'Has Error')
