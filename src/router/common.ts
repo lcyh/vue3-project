@@ -3,6 +3,7 @@
  */
 /* eslint-disable */
 import { MenuState, MenuRouter } from '@/types/router'
+import Layout from '@/views/layout/index.vue'
 
 function importModules(files: any) {
   const routeModules: MenuState[] = []
@@ -47,24 +48,23 @@ export function formatMenusMap() {
   return menuMap
 }
 
-const routes = [
+const constantRoutes = [
+  {
+    path: '/login',
+    name: 'Login',
+    component: () => import(/* webpackChunkName: "login" */'@/views/login/index.vue')
+  },
   {
     path: '/',
     meta: { requiresAuth: true },
     redirect: 'Home',
-    component: () => import(/* webpackChunkName: "index" */ '@/views/layout/index.vue'),
+    component: Layout,
     children: [
       {
         path: '',
         name: 'Home',
         meta: { showNavSide: false, title: '首页' },
         component: () => import(/* webpackChunkName: "home" */ '@/views/home/index.vue')
-      },
-      {
-        path: '/databoard/:id?',
-        name: 'Databoard',
-        meta: { requiresAuth: true, title: '数据看板' },
-        component: () => import(/* webpackChunkName: "databoard" */ '@/views/databoard/index.vue')
       },
       {
         path: '/form',
@@ -85,6 +85,16 @@ const routes = [
         component: () => import(/* webpackChunkName: "profile" */ '@/views/profile')
       }
     ]
-  }
+  },
+  {
+    path: '/403',
+    name: 'notAuth',
+    component: () => import(/* webpackChunkName: "notAuth" */'@/views/exceptions/403.vue')
+  },
+  {
+    path: '/404',
+    name: 'notFound',
+    component: () => import(/* webpackChunkName: "notFound" */'@/views/exceptions/404.vue')
+  },
 ]
-export default routes
+export default constantRoutes

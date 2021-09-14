@@ -22,3 +22,5 @@ export {
   // eslint-disable-next-line import/prefer-default-export
   handleGetCurrentMenuItem
 }
+
+export const isValidUsername = (str: string) => ['admin', 'editor'].indexOf(str.trim()) >= 0

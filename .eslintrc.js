@@ -34,7 +34,11 @@ module.exports = {
     'no-continue': 'off',
     '@typescript-eslint/no-var-requires': 'off',
     'import/no-cycle': ['off', { ignoreExternal: true }],
-    'max-len': ['off']
+    'max-len': ['off'],
+    "no-lonely-if": "off",
+    "consistent-return": "off",
+    "@typescript-eslint/ban-types": "off",
+    "no-param-reassign": "off"
   },
   overrides: [
     {

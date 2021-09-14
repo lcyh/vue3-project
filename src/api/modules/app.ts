@@ -1,10 +1,16 @@
 import Http from '../http'
 
+function loginRequest(params = {}) {
+  return Http.create({
+    method: 'get',
+    url: '/mock/login.json',
+    params
+  })
+}
 // 获取当前用户信息
 function getUserInfo(params = {}) {
   return Http.create({
     method: 'get',
-    // url: '/user/info',
     url: '/mock/user.json',
     params
   })
@@ -19,6 +25,7 @@ function getUserPermission(params = {}) {
 }
 
 export default {
+  loginRequest,
   getUserInfo,
   getUserPermission
 }

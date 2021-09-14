@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export interface UserInfo {
   id: string
-  role: number
+  role: string[]
   roleName: string
   userName: string
   email: string
@@ -15,5 +15,9 @@ export default interface AppState {
   activedMenu: string
   activedSubmenu?: string
   menuList?: string[]
+  permission: {
+    dynamicRoutes: any[]
+  }
+  hasAddRoute: boolean
   [key: string]: any
 }

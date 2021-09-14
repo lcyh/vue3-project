@@ -35,8 +35,6 @@ export default defineComponent({
     })
     const reportName = computed(() => currentSubMenuData.value.title)
     const reportUrl = computed(() => currentSubMenuData.value.reportUrl)
-    console.log('currentSubMenuData', currentSubMenuData.value)
-
     return {
       reportId,
       reportName,

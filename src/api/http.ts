@@ -43,13 +43,13 @@ instance.interceptors.request.use((config: AxiosRequestConfig) => {
 instance.interceptors.response.use(
   (response: AxiosResponse) => {
     if (response.status >= 200 && response.status < 300) {
-      const code = response.data.code || response.data.response_code
-      if (code === 200 || code === 1) {
+      const { code } = response.data
+      if (code === 200 || code === 1 || code === 0) {
         return response
       }
-      if (code === 0) {
-        router.replace('/login')
-      }
+      // if (code === 0) {
+      //   router.replace('/login')
+      // }
       if (code === 403) {
         // 用户无权限
         router.replace('/403')

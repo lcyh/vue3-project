@@ -1,20 +1,39 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { ActionContext } from 'vuex'
 import { ElMessage } from 'element-plus'
-import { formatMenusMap } from '@/router/common'
+import { formatMenusMap, routeModules } from '@/router/common'
 import UserAction from '@/api/modules/app'
 import AppState, { UserInfo } from './types'
 import RootStateTypes from '../../types'
+import { getCookie, setCookie, removeCookie } from '@/utils/auth'
+import NotFound from '@/views/exceptions/404.vue'
 
+let databoardRoute: any = {}
+routeModules.forEach((item: any) => {
+  if (item.path === '/databoard') {
+    databoardRoute = Object.assign(databoardRoute, item)
+  }
+})
 const appModule = {
   namespaced: true,
   state: {
-    userInfo: null, // 用户信息
+    token: getCookie() || '',
+    userInfo: {
+      id: '',
+      role: [],
+      roleName: '',
+      userName: '',
+      email: ''
+    }, // 用户信息
     collapsed: false, // 左侧导航是否折叠
     showNavSide: true, // 是否显示左侧导航
     showGameSelect: false, // 是否显示游戏下拉框
     menuMap: formatMenusMap(), // 一二级导航集合
-    activedMenu: 'Home' // 当前选中的一级导航
+    activedMenu: 'Home', // 当前选中的一级导航
+    permission: {
+      dynamicRoutes: []
+    },
+    hasAddRoute: false
   },
   mutations: {
     TOGGLE_COLLAPSED(state: AppState, value: boolean) {
@@ -35,19 +54,61 @@ const appModule = {
     },
     SET_USER_INFO(state: AppState, value: UserInfo) {
       state.userInfo = value
+    },
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    SET_ADD_ROUTERS: (state: AppState, routers: any[]) => {
+      const routes: any = [];
+      if (routers.length) {
+        routers.forEach((route: any) => {
+          if (route.name === 'Databoard') {
+            routes.push(databoardRoute)
+          } else {
+            routes.push(route)
+          }
+        })
+      }
+      routers.push({
+        path: "/:path(.*)",
+        name: "NotFound",
+        component: NotFound,
+        meta: { hidden: true }
+      })
+      state.permission.dynamicRoutes = routes
+      console.log('state.permission.dynamicRoutes-1', state.permission.dynamicRoutes);
+
+      state.hasAddRoute = true
+    },
+    SET_TOKEN: (state: AppState, token: string) => {
+      state.token = token
     }
   },
   actions: {
-    toggleCollapsed({ commit }: ActionContext<string, RootStateTypes>, value: boolean) {
+    toggleCollapsed({ commit }: ActionContext<AppState, RootStateTypes>, value: boolean) {
       commit('TOGGLE_COLLAPSED', value)
     },
-    setNavSide({ commit }: ActionContext<string, RootStateTypes>, value: boolean) {
+    setNavSide({ commit }: ActionContext<AppState, RootStateTypes>, value: boolean) {
       commit('SET_NAV_SIDE', value)
     },
-    setShowGameSelect({ commit }: ActionContext<string, RootStateTypes>, value: boolean) {
+    setShowGameSelect({ commit }: ActionContext<AppState, RootStateTypes>, value: boolean) {
       commit('SET_SHOW_GAME_SELECT', value)
     },
-    setUserInfo({ commit }: ActionContext<string, RootStateTypes>) {
+    async setLogin(
+      { commit }: ActionContext<AppState, RootStateTypes>,
+      userInfo: { username: string, password: string }
+    ) {
+      // eslint-disable-next-line prefer-const
+      let { username, password } = userInfo
+      username = username.trim()
+      await UserAction.loginRequest({ username, password }).then((res: any) => {
+        if (res?.code === 200 && res.data.accessToken) {
+          setCookie(res.data.accessToken)
+          commit("SET_TOKEN", res.data.accessToken)
+        }
+      }).catch((err: any) => {
+        console.log('err', err)
+      })
+    },
+    setUserInfo({ commit }: ActionContext<AppState, RootStateTypes>) {
       return new Promise<void>((resolve, reject) => {
         UserAction.getUserInfo()
           .then((res: any) => {
@@ -81,13 +142,16 @@ const appModule = {
           .then((res: any) => {
             if (res.data) {
               const { data } = res
-              console.log('setUserPermission', data)
-
+              const { list } = data;
+              const result = {
+                menu: list,
+                map: list,
+                routes: list,
+              }
               // commit('SET_MENU_LIST', result.menu)
               // commit('SET_MENU_MAP', result.map)
-              // commit('SET_ADD_ROUTERS', result.routes)
-              // commit('SET_HISTORY_MENU_LIST', data)
-              // resolve(result.routes)
+              commit('SET_ADD_ROUTERS', result.routes)
+              resolve(result.routes)
             } else {
               reject(new Error('用户菜单列表获取失败'))
             }
@@ -98,6 +162,12 @@ const appModule = {
             reject(err)
           })
       })
+    },
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    setRemoveToken({ commit, state }: ActionContext<AppState, RootStateTypes>) {
+      removeCookie()
+      commit('SET_TOKEN', '')
+      commit('SET_USER_INFO', '')
     }
   }
 }

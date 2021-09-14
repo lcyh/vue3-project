@@ -3,11 +3,13 @@ import AppState from './modules/appStore/types'
 import DataBoardState from './modules/databoardStore/types'
 
 export default interface RootStateTypes {
-  text: string
+  appModule: AppState
+  countModule: CountState
+  databoardModule: DataBoardState
 }
 
 export interface AllStateTypes extends RootStateTypes {
-  CountState: CountState
   AppState: AppState
+  CountState: CountState
   databoardState: DataBoardState
 }
