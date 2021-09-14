@@ -150,7 +150,6 @@ export default {
         if (valid) {
           return true
         }
-        console.log('error submit!!')
         return false
       })
     },

@@ -140,7 +140,6 @@ export default defineComponent({
       }
     }
     const handleCommand = (key: string) => {
-      console.log(key)
       const { route } = reactiveData
       if (key === 'logout') {
         store.dispatch('appModule/setLogout')

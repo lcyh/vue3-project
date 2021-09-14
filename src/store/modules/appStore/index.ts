@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { ActionContext } from 'vuex'
 import { ElMessage } from 'element-plus'
@@ -79,9 +80,6 @@ const appModule = {
 
       state.hasAddRoute = true
     },
-    SET_TOKEN: (state: AppState, token: string) => {
-      state.token = token
-    },
   },
   actions: {
     toggleCollapsed({ commit }: ActionContext<AppState, RootStateTypes>, value: boolean) {
@@ -103,14 +101,12 @@ const appModule = {
       await UserAction.loginRequest({ username, password }).then((res: any) => {
         if (res?.code === 200 && res.data.accessToken) {
           setCookie(res.data.accessToken)
-          commit("SET_TOKEN", res.data.accessToken)
         }
       }).catch((err: any) => {
         console.log('err', err)
       })
     },
     setLogout({ commit }: ActionContext<AppState, RootStateTypes>) {
-      commit('SET_TOKEN', '')
       removeCookie()
       resetRouter()
     },
@@ -172,7 +168,6 @@ const appModule = {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     setRemoveToken({ commit, state }: ActionContext<AppState, RootStateTypes>) {
       removeCookie()
-      commit('SET_TOKEN', '')
       commit('SET_USER_INFO', '')
     }
   }

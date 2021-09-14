@@ -18,7 +18,6 @@ export default defineComponent({
   name: 'Count',
   setup() {
     const store = useStore()
-    console.log('count', store)
     const reactiveData = reactive({
       text: computed(() => store.state.text),
       count: computed(() => store.state.countModule.count)

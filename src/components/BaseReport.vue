@@ -34,7 +34,6 @@ export default defineComponent({
   setup(props, context) {
     const url = computed(() => props.targetUrl)
     console.log('base-report-url', url)
-
     return {
       url
     }

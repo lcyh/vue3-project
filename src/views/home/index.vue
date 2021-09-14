@@ -1,5 +1,5 @@
 <template>
-  <div class="board-wrapper">首页</div>
+  <div class="board-wrapper">首页-{{ route.name }}</div>
 </template>
 
 <script lang="ts">
@@ -10,9 +10,10 @@ export default defineComponent({
   components: {},
   setup() {
     const route = useRoute()
-    console.log('首页-路由', route)
 
-    return {}
+    return {
+      route
+    }
   }
 })
 </script>

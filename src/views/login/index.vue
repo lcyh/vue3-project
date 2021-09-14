@@ -237,7 +237,7 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .login-container {
-  height: 100%;
+  height: 100vh;
   width: 100%;
   overflow: hidden;
   // background-color: $loginBg;

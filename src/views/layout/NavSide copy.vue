@@ -92,8 +92,6 @@ export default defineComponent({
     const showNavSide = computed(() => route.name === 'Databoard')
     const activedSubmenu = computed(() => {
       const routeName = route.name
-      console.log('activedSubmenu', routeName)
-
       return routeName
     })
     const toggleCollapse = () => {

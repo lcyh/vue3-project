@@ -21,8 +21,7 @@ const whiteList = ['/login', '/403', '/404', '/redirect']
 router.beforeEach(async (to: RouteLocationNormalized, _: RouteLocationNormalized, next: any) => {
   start()
   // Determine whether the user has logged in
-  // console.log('store.state.appModule.token', store.state.appModule.token);
-  if (store.state.appModule.token) {
+  if (getCookie()) {
     if (to.path === '/login') {
       // If is logged in, redirect to the home page
       next({ path: '/' })
