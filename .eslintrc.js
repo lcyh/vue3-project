@@ -38,7 +38,9 @@ module.exports = {
     "no-lonely-if": "off",
     "consistent-return": "off",
     "@typescript-eslint/ban-types": "off",
-    "no-param-reassign": "off"
+    "no-param-reassign": "off",
+    "no-extra-semi": "off",
+    "@typescript-eslint/no-extra-semi": ["off"]
   },
   overrides: [
     {

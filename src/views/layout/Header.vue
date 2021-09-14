@@ -50,7 +50,7 @@
       <el-dropdown class="dropdown-wrap" @command="handleCommand">
         <span class="el-dropdown-link">
           <img class="user-avatar" src="../../assets/images/bili.png" alt="" />
-          <span class="user-name">{{ userName }}</span>
+          <span class="user-name">{{ userInfo.userName }}</span>
           <i class="el-icon-caret-bottom"></i>
         </span>
         <template #dropdown>
@@ -64,10 +64,10 @@
 </template>
 <script lang="ts">
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { computed, defineComponent, onMounted, reactive, ref, toRefs } from 'vue';
-import { useRouter, useRoute } from 'vue-router';
-import { useStore } from 'vuex';
-import { getGameList } from '@/api/modules/databoard';
+import { computed, defineComponent, onMounted, reactive, ref, toRefs } from 'vue'
+import { useRouter, useRoute } from 'vue-router'
+import { useStore } from 'vuex'
+import { getGameList } from '@/api/modules/databoard'
 
 const menuList = [
   // { name: "Home", path: "/home", title: "首页" },
@@ -75,82 +75,91 @@ const menuList = [
   { name: 'Form', path: '/form', title: 'Form表单' },
   { name: 'Count', path: '/count', title: '计数器' },
   { name: 'Profile', path: '/profile', title: 'jsx个人中心' }
-];
+]
 export default defineComponent({
   setup() {
-    const store = useStore();
-    const router = useRouter();
-    const isClickMenu = ref(false);
+    const store = useStore()
+    const router = useRouter()
+    // const route = useRoute()
+    const isClickMenu = ref(false)
     const reactiveData: any = reactive({
       selectedGame: {},
-      gameList: []
-    });
+      gameList: [],
+      route: useRoute()
+    })
+    const userInfo = computed(() => store.state.appModule.userInfo)
     // const activedMenu = computed(() => store.state.appModule.activedMenu);
     onMounted(async () => {
-      const res = await getGameList();
-      reactiveData.gameList = res.data;
-      reactiveData.selectedGame = { ...reactiveData.gameList[0] };
-    });
+      const res = await getGameList()
+      reactiveData.gameList = res.data
+      reactiveData.selectedGame = { ...reactiveData.gameList[0] }
+    })
     const handleSetReportList = () => {
       store
         .dispatch('databoardModule/setReportList', reactiveData.selectedGame.gameBaseId)
         .then((res: any) => {
           // 默认展示第一个有权限的看板菜单
-          let databoardFirstMenuId = res[0]?.id;
+          let databoardFirstMenuId = res[0]?.id
           if (res && res[0] && res[0].children) {
-            databoardFirstMenuId = res[0]?.children[0]?.id || res[0]?.id;
+            databoardFirstMenuId = res[0]?.children[0]?.id || res[0]?.id
           }
-          router.push(`/databoard/detail${databoardFirstMenuId ? `/${databoardFirstMenuId}` : ''}`);
-        });
-    };
+          router.push(`/databoard/detail${databoardFirstMenuId ? `/${databoardFirstMenuId}` : ''}`)
+        })
+    }
     const selectedMenu = computed(() => {
-      const route = useRoute();
-      const currentRoutePath = route.path;
+      const { route } = reactiveData
+      const currentRoutePath = route.path
       if (/^\/databoard/.test(currentRoutePath)) {
         // 当切换到数据看板导航时请求数据看板列表
-        console.log('进来了');
         if (!isClickMenu.value && reactiveData?.selectedGame?.gameBaseId) {
           // 防止点击 数据看板菜单时请求两次接口
-          handleSetReportList();
+          handleSetReportList()
         }
       }
-      return route.name;
-    });
+      return route.name
+    })
 
     const onChangeGame = (gameId: number) => {
-      isClickMenu.value = true;
-      const currentGame = reactiveData.gameList.find((item: any) => item.gameBaseId === gameId);
-      reactiveData.selectedGame = currentGame;
-      store.commit('databoardModule/SET_SELECTED_GAME', currentGame);
-      handleSetReportList();
-    };
+      isClickMenu.value = true
+      const currentGame = reactiveData.gameList.find((item: any) => item.gameBaseId === gameId)
+      reactiveData.selectedGame = currentGame
+      store.commit('databoardModule/SET_SELECTED_GAME', currentGame)
+      handleSetReportList()
+    }
     const handleSelect = (key: string) => {
-      isClickMenu.value = true;
+      isClickMenu.value = true
       // 设置当前选中的一级菜单menu
-      store.commit('appModule/SET_ACTIVED_MENU', key);
+      store.commit('appModule/SET_ACTIVED_MENU', key)
       if (key === 'Databoard') {
         // 切换到数据看板页时，请求获取 数据看板报表菜单列表数据
-        handleSetReportList();
+        handleSetReportList()
       } else {
         router.push({
           name: key
-        });
+        })
       }
-    };
-
+    }
     const handleCommand = (key: string) => {
-      console.log(key);
-    };
+      console.log(key)
+      const { route } = reactiveData
+      if (key === 'logout') {
+        store.dispatch('appModule/setLogout')
+        router.push(`/login?redirect=${route.fullPath}`).catch((err) => {
+          console.warn(err)
+        })
+      }
+    }
     return {
       selectedMenu,
       handleSelect,
       handleCommand,
       menuList,
       onChangeGame,
+      userInfo,
       ...toRefs(reactiveData)
-    };
+    }
   }
-});
+})
 </script>
 <style lang="scss" scoped>
 .header {

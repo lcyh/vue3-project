@@ -9,13 +9,13 @@
         :default-active="defaultActivedSubmenu"
         :collapse-transition="false"
         :collapse="collapsed"
-        @select="onSelectMenu"
+        @select="handleClickMenuItem"
       >
         <template v-for="item in submenuList">
           <el-sub-menu
             class="sub-menu"
             v-if="item.children && item.children.length > 0"
-            :index="item.id"
+            :index="item.id + ''"
             :key="item.id"
           >
             <template #title>
@@ -33,22 +33,15 @@
               <el-menu-item
                 v-for="el in item.children"
                 :key="el.id"
-                :index="el.id"
+                :index="el.id + ''"
                 class="menu-item"
-                @click="handleClickMenuItem(el)"
               >
                 <i :class="['iconfont', el.icon]"></i>
                 <template #title>{{ el.title }}</template>
               </el-menu-item>
             </el-menu-item-group>
           </el-sub-menu>
-          <el-menu-item
-            class="menu-item"
-            v-else
-            :key="item.id"
-            :index="item.id"
-            @click="handleClickMenuItem(item)"
-          >
+          <el-menu-item class="menu-item" v-else :key="item.id" :index="item.id + ''">
             <i :class="['iconfont', item.icon]"></i>
             <template class="nav-text" #title>{{ item.title }}</template>
           </el-menu-item>
@@ -64,39 +57,39 @@
 </template>
 <script lang="ts">
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useStore } from 'vuex';
-import { defineComponent, computed, ref } from 'vue';
-import { useRoute, useRouter } from 'vue-router';
+import { useStore } from 'vuex'
+import { defineComponent, computed, ref } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 
 const menuIcons: { [key: string]: string } = {
   运营: 'iconlinechart',
   研发: 'iconpiechart',
   流量: 'iconadduser',
   专题: 'iconspecial'
-};
+}
 
 export default defineComponent({
   setup() {
-    const store = useStore();
-    const route = useRoute();
-    const router = useRouter();
-    const collapsed = ref(false);
-    const submenuList = computed(() => store.state.databoardModule.reportMenuList);
-    const showNavSide = computed(() => route.name === 'Databoard');
+    const store = useStore()
+    const route = useRoute()
+    const router = useRouter()
+    const collapsed = ref(false)
+    const submenuList = computed(() => store.state.databoardModule.reportMenuList)
+    const showNavSide = computed(() => route.name === 'Databoard')
     const defaultActivedSubmenu = computed(() => {
-      const { params } = route;
-      let firstId = submenuList.value[0]?.id;
+      const { params } = route
+      let firstId = submenuList.value[0]?.id
       if (params?.id) {
-        firstId = params.id;
+        firstId = params.id
       }
-      return `${firstId}`;
-    });
+      return `${firstId}`
+    })
     const toggleCollapse = () => {
-      collapsed.value = !collapsed.value;
-    };
-    const handleClickMenuItem = (menuItem: any) => {
-      router.push(`/databoard/${menuItem.id}`);
-    };
+      collapsed.value = !collapsed.value
+    }
+    const handleClickMenuItem = (menuId: any) => {
+      router.push(`/databoard/detail/${menuId}`)
+    }
     return {
       defaultActivedSubmenu,
       collapsed,
@@ -105,9 +98,9 @@ export default defineComponent({
       submenuList,
       showNavSide,
       handleClickMenuItem
-    };
+    }
   }
-});
+})
 </script>
 <style lang="scss" scoped>
 .aside-wrapper {

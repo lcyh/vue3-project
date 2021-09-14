@@ -2,6 +2,7 @@
 import { ActionContext } from 'vuex'
 import { ElMessage } from 'element-plus'
 import { formatMenusMap, routeModules } from '@/router/common'
+import { resetRouter } from '@/router/index'
 import UserAction from '@/api/modules/app'
 import AppState, { UserInfo } from './types'
 import RootStateTypes from '../../types'
@@ -80,7 +81,7 @@ const appModule = {
     },
     SET_TOKEN: (state: AppState, token: string) => {
       state.token = token
-    }
+    },
   },
   actions: {
     toggleCollapsed({ commit }: ActionContext<AppState, RootStateTypes>, value: boolean) {
@@ -107,6 +108,11 @@ const appModule = {
       }).catch((err: any) => {
         console.log('err', err)
       })
+    },
+    setLogout({ commit }: ActionContext<AppState, RootStateTypes>) {
+      commit('SET_TOKEN', '')
+      removeCookie()
+      resetRouter()
     },
     setUserInfo({ commit }: ActionContext<AppState, RootStateTypes>) {
       return new Promise<void>((resolve, reject) => {

@@ -31,30 +31,22 @@
         />
       </el-form-item>
 
-      <el-tooltip v-model="capsTooltip" content="Caps lock is On" placement="right" manual>
-        <el-form-item prop="password">
-          <span class="svg-container">
-            <i class="el-icon-lock" />
-          </span>
-          <el-input
-            :key="passwordType"
-            ref="passwordRef"
-            v-model="loginForm.password"
-            :type="passwordType"
-            placeholder="密码"
-            name="password"
-            tabindex="2"
-            autocomplete="on"
-            @keyup="checkCapslock"
-            @blur="capsTooltip = false"
-            @keyup.enter="handleLogin"
-          />
-          <span class="show-pwd" @click="showPwd">
-            <svg-icon :name="passwordType === 'password' ? 'eye-off' : 'eye-on'" />
-          </span>
-        </el-form-item>
-      </el-tooltip>
-
+      <el-form-item prop="password">
+        <span class="svg-container">
+          <i class="el-icon-lock" />
+        </span>
+        <el-input
+          :key="passwordType"
+          ref="passwordRef"
+          v-model="loginForm.password"
+          :type="passwordType"
+          placeholder="密码"
+          name="password"
+          tabindex="2"
+          autocomplete="on"
+          @keyup.enter="handleLogin"
+        />
+      </el-form-item>
       <el-button
         :loading="loading"
         type="primary"
@@ -63,7 +55,6 @@
       >
         登录
       </el-button>
-
       <div style="position: relative">
         <div class="tips">
           <span>用户名 : admin </span>
@@ -73,7 +64,6 @@
           <span>用户名 : editor </span>
           <span>密码 : 随便填 </span>
         </div>
-
         <el-button class="thirdparty-button" type="primary"> 第三方登录 </el-button>
       </div>
     </el-form>
@@ -82,21 +72,20 @@
 
 <script lang="ts">
 /* eslint-disable @typescript-eslint/no-explicit-any */
-
-import { defineComponent, onMounted, reactive, watch, ref, nextTick, toRefs } from 'vue';
-import { useRoute, LocationQuery, useRouter } from 'vue-router';
-import { useStore } from 'vuex';
-import { isValidUsername } from '@/utils/shared';
+import { defineComponent, onMounted, reactive, watch, ref, nextTick, toRefs } from 'vue'
+import { useRoute, LocationQuery, useRouter } from 'vue-router'
+import { useStore } from 'vuex'
+import { isValidUsername } from '@/utils/shared'
 
 export default defineComponent({
   components: {},
   setup() {
-    const userNameRef = ref(null);
-    const passwordRef = ref(null);
-    const loginFormRef = ref(null);
-    const router = useRouter();
-    const route = useRoute();
-    const store = useStore();
+    const userNameRef = ref(null)
+    const passwordRef = ref(null)
+    const loginFormRef = ref(null)
+    const router = useRouter()
+    const route = useRoute()
+    const store = useStore()
     const state = reactive({
       loginForm: {
         username: 'admin',
@@ -108,90 +97,85 @@ export default defineComponent({
       },
       passwordType: 'password',
       loading: false,
-      capsTooltip: false,
       redirect: '',
       otherQuery: {}
-    });
+    })
 
     const methods = reactive({
       validateUsername: (rule: any, value: string, callback: (p?: any) => void) => {
         if (!isValidUsername(value)) {
-          callback(new Error('Please enter the correct user name'));
+          callback(new Error('Please enter the correct user name'))
         } else {
-          callback();
+          callback()
         }
       },
       validatePassword: (rule: any, value: string, callback: (p?: any) => void) => {
         if (value.length < 6) {
-          callback(new Error('The password can not be less than 6 digits'));
+          callback(new Error('The password can not be less than 6 digits'))
         } else {
-          callback();
+          callback()
         }
-      },
-      checkCapslock: (e: KeyboardEvent) => {
-        const { key } = e;
-        state.capsTooltip = key !== null && key.length === 1 && key >= 'A' && key <= 'Z';
       },
       showPwd: () => {
         if (state.passwordType === 'password') {
-          state.passwordType = '';
+          state.passwordType = ''
         } else {
-          state.passwordType = 'password';
+          state.passwordType = 'password'
         }
         nextTick(() => {
-          (passwordRef.value as any).focus();
-        });
+          ;(passwordRef.value as any).focus()
+        })
       },
       handleLogin: () => {
-        (loginFormRef.value as any).validate(async (valid: boolean) => {
+        ;(loginFormRef.value as any).validate(async (valid: boolean) => {
           if (valid) {
-            state.loading = true;
-            await store.dispatch('appModule/setLogin', state.loginForm);
+            state.loading = true
+            await store.dispatch('appModule/setLogin', state.loginForm)
             router
               .push({
                 path: state.redirect || '/',
                 query: state.otherQuery
               })
               .catch((err) => {
-                console.warn(err);
-              });
+                console.warn(err)
+              })
             // Just to simulate the time of the request
             setTimeout(() => {
-              state.loading = false;
-            }, 0.5 * 1000);
+              state.loading = false
+            }, 0.5 * 1000)
           } else {
-            return false;
+            return false
           }
-        });
+        })
       }
-    });
+    })
 
     function getOtherQuery(query: LocationQuery) {
       return Object.keys(query).reduce((acc, cur) => {
         if (cur !== 'redirect') {
-          acc[cur] = query[cur];
+          acc[cur] = query[cur]
         }
-        return acc;
-      }, {} as LocationQuery);
+        return acc
+      }, {} as LocationQuery)
     }
 
     watch(
       () => route.query,
       (query) => {
         if (query) {
-          state.redirect = query.redirect?.toString() ?? '';
-          state.otherQuery = getOtherQuery(query);
+          state.redirect = query.redirect?.toString() ?? ''
+          state.otherQuery = getOtherQuery(query)
         }
       }
-    );
+    )
 
     onMounted(() => {
       if (state.loginForm.username === '') {
-        (userNameRef.value as any).focus();
+        ;(userNameRef.value as any).focus()
       } else if (state.loginForm.password === '') {
-        (passwordRef.value as any).focus();
+        ;(passwordRef.value as any).focus()
       }
-    });
+    })
 
     return {
       userNameRef,
@@ -199,13 +183,15 @@ export default defineComponent({
       loginFormRef,
       ...toRefs(state),
       ...toRefs(methods)
-    };
+    }
   }
-});
+})
 </script>
 
 <style lang="scss">
 // References: https://www.zhangxinxu.com/wordpress/2018/01/css-caret-color-first-line/
+// @supports是CSS3新引入的规则之一，主要用于检测当前浏览器是否支持某个CSS属性并加载具体样式.
+// 改变输入框 光标颜色
 @supports (-webkit-mask: none) and (not (cater-color: $loginCursorColor)) {
   .login-container .el-input {
     input {

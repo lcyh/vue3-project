@@ -104,5 +104,8 @@ router.afterEach((to) => {
   // store.dispatch('setNavSide', to.meta.showNavSide)
   done()
 })
-
+export function resetRouter() {
+  const newRouter = router;
+  (router as any).matcher = (newRouter as any).matcher // reset router
+}
 export default router

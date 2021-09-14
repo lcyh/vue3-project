@@ -4,9 +4,11 @@
     <section class="content">
       <NavSide />
       <main class="main">
-        <transition name="slide">
-          <router-view />
-        </transition>
+        <router-view v-slot="{ Component }">
+          <transition name="slide">
+            <component :is="Component" />
+          </transition>
+        </router-view>
       </main>
     </section>
   </div>
@@ -30,7 +32,8 @@ export default defineComponent({
 })
 </script>
 <style lang="scss" scoped>
-.slide-enter-active {
+.slide-enter-active,
+.slide-leave-active {
   transition: all 0.2s ease;
 }
 .slide-enter,
