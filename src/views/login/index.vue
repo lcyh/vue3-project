@@ -166,7 +166,8 @@ export default defineComponent({
           state.redirect = query.redirect?.toString() ?? ''
           state.otherQuery = getOtherQuery(query)
         }
-      }
+      },
+      { immediate: true }
     )
 
     onMounted(() => {

@@ -33,7 +33,6 @@ export default defineComponent({
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   setup(props, context) {
     const url = computed(() => props.targetUrl)
-    console.log('base-report-url', url)
     return {
       url
     }

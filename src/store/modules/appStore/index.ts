@@ -10,12 +10,6 @@ import RootStateTypes from '../../types'
 import { getCookie, setCookie, removeCookie } from '@/utils/auth'
 import NotFound from '@/views/exceptions/404.vue'
 
-let databoardRoute: any = {}
-routeModules.forEach((item: any) => {
-  if (item.path === '/databoard') {
-    databoardRoute = Object.assign(databoardRoute, item)
-  }
-})
 function handleRouteMap() {
   const map: any = {}
   routeModules.forEach((item: any) => {
@@ -35,14 +29,13 @@ function handleAddRoute(routers: any) {
       }
     })
   }
-
   addRoutes.push({
     path: "/:path(.*)",
     name: "NotFound",
     component: NotFound,
     meta: { hidden: true }
   })
-  console.log('routes', addRoutes);
+  console.log('addRoutes', addRoutes);
 
   return { routes: addRoutes }
 }

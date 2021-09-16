@@ -46,7 +46,7 @@ router.beforeEach(async (to: RouteLocationNormalized, _: RouteLocationNormalized
           // Set the replace: true, so the navigation will not leave a history record
           next({ ...to, replace: true })
         } catch (err) {
-          console.log('---err---', err);
+          console.error('---err---', err);
           // Remove token and redirect to login page
           store.dispatch("appModule/setRemoveToken")
           ElMessage.error(err || 'Has Error')
@@ -100,6 +100,7 @@ router.beforeEach(async (to: RouteLocationNormalized, _: RouteLocationNormalized
 // })
 // 全局路由后置守卫
 router.afterEach((to) => {
+  console.log('afterEach-to', to);
   // 显示还是隐藏左侧导航
   // store.dispatch('setNavSide', to.meta.showNavSide)
   done()
