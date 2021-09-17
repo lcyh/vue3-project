@@ -12,6 +12,7 @@
   "lint-staged": {
     "*.{vue,.js,.tx,.jsx,.tsx}": "eslint --fix"
   },
+  "homepage": "https://lcyh.github.io/vue3-project/",
   "dependencies": {
     "@types/nprogress": "^0.2.0",
     "axios": "^0.21.1",
