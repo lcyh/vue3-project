@@ -21,6 +21,13 @@ jobs:
         # 拉取代码
         uses: actions/checkout@master
 
+        # 设置Node环境 actions/setup-node@v1 是GitHub Marketplace其中的一个,相当于一个方法
+        # 使用一个Actions 使用uses关键字,  with表明参数
+      - name: Setup Node.js v14.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: "14.x"
+
       - name: Build and Deploy
         # 构建发布 Github pages
         uses: JamesIves/github-pages-deploy-action@releases/v2
