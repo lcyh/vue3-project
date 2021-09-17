@@ -10,7 +10,7 @@ export default [
         path: 'form-detail',
         name: 'FormDetail',
         meta: { requiresAuth: true, title: 'Form表单测试' },
-        component: () => import(/* webpackChunkName: "form" */ '@/views/form.vue')
+        component: () => import(/* webpackChunkName: "form" */ '@/views/form/index.vue')
       },
     ]
   },

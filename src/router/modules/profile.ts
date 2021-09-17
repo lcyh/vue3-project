@@ -10,7 +10,7 @@ export default [
         path: 'profile',
         name: 'Profile',
         meta: { requiresAuth: true, title: '个人中心' },
-        component: () => import(/* webpackChunkName: "profile" */ '@/views/profile')
+        component: () => import(/* webpackChunkName: "profile" */ '@/views/profile/index')
       },
     ]
   },
