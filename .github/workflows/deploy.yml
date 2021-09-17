@@ -19,7 +19,9 @@ jobs:
       - name: Checkout 🛎️
         # 使用的操作 actions，可以使用公共仓库，本地仓库，别人的仓库的action
         # 拉取代码
-        uses: actions/checkout@master
+        uses: actions/checkout@v2.3.1
+        with:
+          persist-credentials: false
 
         # 设置Node环境 actions/setup-node@v1 是GitHub Marketplace其中的一个,相当于一个方法
         # 使用一个Actions 使用uses关键字,  with表明参数
@@ -28,19 +30,27 @@ jobs:
         with:
           node-version: "14.x"
 
-      - name: Build and Deploy
+      - name: Install and Build
+        run: |
+          yarn
+          yarn build
+
+      - name: Deploy
         # 构建发布 Github pages
-        uses: JamesIves/github-pages-deploy-action@releases/v2
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+            deploy_key: ${{ secrets.VUE3_DEPLOY }}
+            publish_dir: ./dist
         # 该步骤所需的环境变量
-        env:
-          ACCESS_TOKEN: ${{ secrets.VUE3_DEPLOY }}
-          # 在部署前要checkout的基本分支，默认是master
-          BASE_BRANCH: master # The branch the action should deploy from.
-          # 指定部署的分支，默认是 gh-pages 分支
-          BRANCH: gh-pages # The branch the action should deploy to.
-          # 存储库中要部署的文件夹。
-          # 该步骤会将项目中 FOLDER 指定文件夹下的文件推送到 BRANCH 分支，作为Github Pages 部署的内容。
-          # Vue CLI默认打包到 dist 目录
-          FOLDER: dist # The folder the action should deploy.
+        # env:
+        #   ACCESS_TOKEN: ${{ secrets.VUE3_DEPLOY }}
+        #   # 在部署前要checkout的基本分支，默认是master
+        #   BASE_BRANCH: master # The branch the action should deploy from.
+        #   # 指定部署的分支，默认是 gh-pages 分支
+        #   BRANCH: gh-pages # The branch the action should deploy to.
+        #   # 存储库中要部署的文件夹。
+        #   # 该步骤会将项目中 FOLDER 指定文件夹下的文件推送到 BRANCH 分支，作为Github Pages 部署的内容。
+        #   # Vue CLI默认打包到 dist 目录
+        #   FOLDER: dist # The folder the action should deploy.
           # 在向 BRANCH 分支推送代码前，可以指定构建脚本
-          BUILD_SCRIPT: yarn && yarn build # The build script the action should run prior to deploying.
+          # BUILD_SCRIPT: yarn && yarn build # The build script the action should run prior to deploying.
