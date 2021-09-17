@@ -39,7 +39,7 @@ jobs:
         # 构建发布 Github pages
         uses: peaceiris/actions-gh-pages@v3
         with:
-            deploy_key: ${{ secrets.VUE3_DEPLOY }}
+            github_token: ${{ secrets.VUE3_DEPLOY }}
             publish_dir: ./dist
         # 该步骤所需的环境变量
         # env:
