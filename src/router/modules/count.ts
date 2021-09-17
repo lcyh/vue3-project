@@ -10,7 +10,7 @@ export default [
         path: 'count-number',
         name: 'CountNumber',
         meta: { requiresAuth: true, title: '计数计算' },
-        component: () => import(/* webpackChunkName: "count" */ '@/views/count.vue')
+        component: () => import(/* webpackChunkName: "count" */ '@/views/count/index.vue')
       },
     ]
   }
