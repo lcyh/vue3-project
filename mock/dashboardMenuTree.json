@@ -1,0 +1,73 @@
+{
+  "code": 0,
+  "message": null,
+  "data": [
+    {
+      "id": 1,
+      "name": "Overview",
+      "title": "数据概览",
+      "type": 0,
+      "status": "visible",
+      "reportUrl": "https://chu1204505056.gitee.io/admin-pro/#/other/iframe/search",
+      "icon": "iconpiechart"
+    },
+    {
+      "id": 2,
+      "name": "RealTime",
+      "title": "实时看板",
+      "type": 0,
+      "status": "visible",
+      "reportUrl": "https://github.com/lcyh/vue3-project",
+      "icon": "iconlinechart"
+    },
+    {
+      "id": 3,
+      "name": "NewBoard",
+      "title": "新增看板",
+      "type": 0,
+      "status": "visible",
+      "reportUrl": "https://element.eleme.cn/#/zh-CN/component/select",
+      "icon": "iconadduser"
+    },
+    {
+      "id": 4,
+      "name": "Custom",
+      "title": "自定义看板",
+      "type": 0,
+      "status": "visible",
+      "icon": "iconUserSettings",
+      "children": [
+        {
+          "id": "41",
+          "name": "Board1",
+          "title": "自定义看板一",
+          "type": 1,
+          "children": null,
+          "reportUrl": "https://www.taobao.com",
+          "status": "visible",
+          "icon": "iconadduser"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "name": "Economics",
+      "title": "经济看板",
+      "type": 0,
+      "status": "visible",
+      "reportUrl": "https://vue-next-template-explorer.netlify.app/",
+      "icon": "iconlinechart"
+    },
+    {
+      "id": 6,
+      "name": "versionAnalysis",
+      "title": "版本分析",
+      "type": 0,
+      "status": "visible",
+      "reportUrl": "https://armour.github.io/vue-typescript-admin-docs/zh/",
+      "icon": "iconadduser"
+    }
+  ],
+  "token": null,
+  "success": true
+}
