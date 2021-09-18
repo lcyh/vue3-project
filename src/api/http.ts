@@ -11,7 +11,7 @@ export interface ResponseData<T> {
 
 // 创建axios实例
 const instance = axios.create({
-  baseURL: process.env.NODE_ENV === 'production' ? process.env.VUE_APP_API_BASE_URL : '/',
+  baseURL: process.env.VUE_APP_API_BASE_URL,
   timeout: 10000,
   withCredentials: true
 })

@@ -2,7 +2,7 @@ const path = require('path')
 
 module.exports = {
   lintOnSave: process.env.NODE_ENV !== 'production',
-  publicPath: process.env.NODE_ENV === 'production' ? '/vue3-project' : '/',
+  publicPath: '/vue3-project', // github里 vue3-project项目名,实际的项目一般不需要配置这项
   productionSourceMap: false,
   chainWebpack: (config) => {
     config.resolve.alias.set('@', path.join(__dirname, 'src'))
