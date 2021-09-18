@@ -2,7 +2,7 @@ const path = require('path')
 
 module.exports = {
   lintOnSave: process.env.NODE_ENV !== 'production',
-  // publicPath: process.env.NODE_ENV === 'production' ? '/docs' : '',
+  publicPath: process.env.NODE_ENV === 'production' ? '/docs' : '/',
   productionSourceMap: false,
   chainWebpack: (config) => {
     config.resolve.alias.set('@', path.join(__dirname, 'src'))
