@@ -40,8 +40,8 @@ jobs:
         # 构建发布 Github pages
         uses: peaceiris/actions-gh-pages@v3
         with:
-            github_token: ${{ secrets.VUE3_DEPLOY }}
+            # github_token: ${{ secrets.VUE3_DEPLOY }}
             # personal_token: ${{ secrets.VUE3_DEPLOY_TOKEN  }}
-            # deploy_key: ${{ secrets.DEPLOY_KEYS }}
+            deploy_key: ${{ secrets.DEPLOY_KEYS }}
             publish_dir: ./dist
             commit_message: ${{ github.event.head_commit.message }}
