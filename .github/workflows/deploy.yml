@@ -1,3 +1,4 @@
+# https://github.com/lcyh/actions-gh-pages#%EF%B8%8F-set-ssh-private-key-deploy_key
 # 工作流名称，不设置的话默认取配置文件名
 name: Build and Deploy
 # 指定触发 workflow 的条件
@@ -39,18 +40,7 @@ jobs:
         # 构建发布 Github pages
         uses: peaceiris/actions-gh-pages@v3
         with:
-            github_token: ${{ secrets.VUE3_DEPLOY }}
+            # github_token: ${{ secrets.VUE3_DEPLOY }}
+            personal_token: ${{ secrets.VUE3-DEPLOY-TOKEN }}
             publish_dir: ./dist
-        # 该步骤所需的环境变量
-        # env:
-        #   ACCESS_TOKEN: ${{ secrets.VUE3_DEPLOY }}
-        #   # 在部署前要checkout的基本分支，默认是master
-        #   BASE_BRANCH: master # The branch the action should deploy from.
-        #   # 指定部署的分支，默认是 gh-pages 分支
-        #   BRANCH: gh-pages # The branch the action should deploy to.
-        #   # 存储库中要部署的文件夹。
-        #   # 该步骤会将项目中 FOLDER 指定文件夹下的文件推送到 BRANCH 分支，作为Github Pages 部署的内容。
-        #   # Vue CLI默认打包到 dist 目录
-        #   FOLDER: dist # The folder the action should deploy.
-          # 在向 BRANCH 分支推送代码前，可以指定构建脚本
-          # BUILD_SCRIPT: yarn && yarn build # The build script the action should run prior to deploying.
+            commit_message: ${{ github.event.head_commit.message }}
