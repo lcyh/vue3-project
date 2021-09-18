@@ -8,7 +8,6 @@ import UserAction from '@/api/modules/app'
 import AppState, { UserInfo } from './types'
 import RootStateTypes from '../../types'
 import { getCookie, setCookie, removeCookie } from '@/utils/auth'
-import NotFound from '@/views/exceptions/404.vue'
 
 function handleRouteMap() {
   const map: any = {}
@@ -31,8 +30,7 @@ function handleAddRoute(routers: any) {
   }
   addRoutes.push({
     path: "/:path(.*)",
-    name: "NotFound",
-    component: NotFound,
+    redirect: '/',
     meta: { hidden: true }
   })
   console.log('addRoutes', addRoutes);
