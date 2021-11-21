@@ -2,6 +2,8 @@ import axios, { AxiosResponse, AxiosRequestConfig } from 'axios'
 import { getCookie } from '@/utils/auth'
 import router from '@/router'
 
+console.log('process.env.NODE_ENV', process.env.NODE_ENV);
+
 // 返回数据格式
 export interface ResponseData<T> {
   code: number
