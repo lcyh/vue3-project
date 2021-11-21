@@ -4,7 +4,10 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
+    "build": "npm run build:doc && npm run build:dist",
+    "build:doc": "vue-cli-service build --mode doc",
+    "build:dist": "vue-cli-service build --mode dist",
+    "build:www": "vue-cli-service build --mode www",
     "test:unit": "vue-cli-service test:unit",
     "lint": "vue-cli-service lint",
     "prepare": "husky install"
