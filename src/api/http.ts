@@ -3,6 +3,7 @@ import { getCookie } from '@/utils/auth'
 import router from '@/router'
 
 console.log('process.env.NODE_ENV', process.env.NODE_ENV);
+
 console.log('process.env.VUE_APP_API_BASE_URL', process.env.VUE_APP_API_BASE_URL);
 
 // 返回数据格式
