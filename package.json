@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "npm run build:doc && npm run build:dist",
+    "build": "npm run build:doc && npm run build:dist && npm run build:build",
     "build:doc": "vue-cli-service build --mode doc",
     "build:dist": "vue-cli-service build --mode dist",
     "build:www": "vue-cli-service build --mode www",

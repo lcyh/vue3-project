@@ -1,0 +1,36 @@
+{
+  "code": 1,
+  "message": null,
+  "data": [
+    {
+      "gameBaseId": 1,
+      "gameBaseName": "王者荣耀",
+      "icon": "https://adxvideo.dataeye.com/6216/5f10561101d03501a09d927bbd114a98.png",
+      "typeId": 1,
+      "typeName": "手游"
+    },
+    {
+      "gameBaseId": 2,
+      "gameBaseName": "英雄联盟",
+      "icon": "https://adxvideo.dataeye.com/1201/cf429b3e604e4e4748b840fc3d04f249.png",
+      "typeId": 1,
+      "typeName": "手游"
+    },
+    {
+      "gameBaseId": 3,
+      "gameBaseName": "原神",
+      "icon": "https://adxvideo.dataeye.com/4041/447c46a85bb226515b7516ddd59d0fa9.png",
+      "typeId": 1,
+      "typeName": "手游"
+    },
+    {
+      "gameBaseId": 4,
+      "gameBaseName": "大闹天空",
+      "icon": "https://adxvideo.dataeye.com/6137/b8cd9b7952770528f274b1ea1dcf28b4.png",
+      "typeId": 1,
+      "typeName": "手游"
+    }
+  ],
+  "token": null,
+  "success": true
+}
