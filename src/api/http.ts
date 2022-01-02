@@ -15,7 +15,7 @@ export interface ResponseData<T> {
 // 创建axios实例
 const instance = axios.create({
   // baseURL: process.env.NODE_ENV === 'production' ? process.env.VUE_APP_API_BASE_URL : '', // 兼容 github里 vue3-project,实际项目具体操作区分
-  baseURL: '', // 兼容 github里 vue3-project,实际项目具体操作区分
+  baseURL: process.env.NODE_ENV === 'production' ? process.env.VUE_APP_API_BASE_URL : '', // 兼容 github里 vue3-project,实际项目具体操作区分
   timeout: 10000,
   withCredentials: true
 })
