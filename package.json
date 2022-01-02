@@ -8,6 +8,7 @@
     "build:doc": "vue-cli-service build --mode doc",
     "build:dist": "vue-cli-service build --mode dist",
     "build:www": "vue-cli-service build --mode www",
+    "build:build": "vue-cli-service build --mode build",
     "test:unit": "vue-cli-service test:unit",
     "lint": "vue-cli-service lint",
     "prepare": "husky install"
