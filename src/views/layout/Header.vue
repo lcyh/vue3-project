@@ -2,8 +2,9 @@
   <header class="header">
     <div class="logo-wrap">
       <router-link class="link" to="/">
-        <i class="iconfont iconbilibili"></i>
-        <p class="logo-text">BI系统</p>
+        <!-- <i class="iconfont iconbilibili"></i> -->
+        <img src="@/assets/logo.png" class="logo-picture" alt="" />
+        <p class="logo-text">Vue3后台</p>
       </router-link>
     </div>
     <div class="game-select">
@@ -25,7 +26,7 @@
             class="select-icon"
             :src="item.icon"
             :alt="item.gameBaseName"
-            onerror="../../assets/images/bili.png"
+            onerror="@/assets/logo.png"
           />
           <span class="select-label">{{ item.gameBaseName }}</span>
         </el-option>
@@ -49,7 +50,11 @@
     <div class="header-right">
       <el-dropdown class="dropdown-wrap" @command="handleCommand">
         <span class="el-dropdown-link">
-          <img class="user-avatar" src="../../assets/images/bili.png" alt="" />
+          <img
+            class="user-avatar"
+            src="https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif?imageView2/1/w/80/h/80"
+            alt=""
+          />
           <span class="user-name">{{ userInfo.userName }}</span>
           <i class="el-icon-caret-bottom"></i>
         </span>
@@ -186,6 +191,11 @@ export default defineComponent({
       font-size: 28px;
       font-weight: 300;
       color: $logo-color;
+    }
+    .logo-picture {
+      display: inline-block;
+      width: 30px;
+      height: 30px;
     }
     .logo-text {
       position: relative;
