@@ -14,6 +14,7 @@ import BaseReport from '@/components/BaseReport.vue'
 import { handleGetCurrentMenuItem } from '@/utils/shared'
 
 export default defineComponent({
+  name: 'databoard',
   components: { BaseReport },
   setup() {
     const route = useRoute()

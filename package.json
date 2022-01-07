@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "new:comp": "node ./scripts/generateComponent",
     "serve": "cross-env NODE_ENV=development vue-cli-service serve",
     "build": "npm run build:doc && npm run build:dist && npm run build:build",
     "build:doc": "cross-env NODE_ENV=production vue-cli-service build --mode doc",
@@ -47,6 +48,7 @@
     "@vue/eslint-config-typescript": "^7.0.0",
     "@vue/test-utils": "^2.0.0-0",
     "chai": "^4.1.2",
+    "chalk": "^5.0.0",
     "commitizen": "^4.2.4",
     "cz-conventional-changelog": "^3.3.0",
     "eslint": "^6.7.2",
